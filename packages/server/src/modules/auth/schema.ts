@@ -6,16 +6,11 @@ export const schema = gql`
   }
 
   type Mutation {
-    Auth(input: AuthInput!): AuthResponse!
+    Auth(input: AuthInput!): UserWithToken!
   }
 
   type GetNonce {
     nonce: String!
-  }
-
-  type AuthResponse {
-    user: User!
-    token: String!
   }
 
   input AuthInput {
