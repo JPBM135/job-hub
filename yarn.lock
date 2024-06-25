@@ -502,6 +502,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular/localize@npm:18.0.4":
+  version: 18.0.4
+  resolution: "@angular/localize@npm:18.0.4"
+  dependencies:
+    "@babel/core": "npm:7.24.7"
+    "@types/babel__core": "npm:7.20.5"
+    fast-glob: "npm:3.3.2"
+    yargs: "npm:^17.2.1"
+  peerDependencies:
+    "@angular/compiler": 18.0.4
+    "@angular/compiler-cli": 18.0.4
+  bin:
+    localize-extract: tools/bundles/src/extract/cli.js
+    localize-migrate: tools/bundles/src/migrate/cli.js
+    localize-translate: tools/bundles/src/translate/cli.js
+  checksum: 10/b636dfd461cea25b4042e0fd993c1cddd731d20ebfe330347ac4d46f7c38050bf2f31566ffa727a3e119f619f8e3e49439195548d88efed9ba151e03f9e5b1c2
+  languageName: node
+  linkType: hard
+
 "@angular/material-luxon-adapter@npm:^18.0.4":
   version: 18.0.4
   resolution: "@angular/material-luxon-adapter@npm:18.0.4"
@@ -2132,7 +2151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.10.3, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.24.5, @babel/parser@npm:^7.24.7":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.10.3, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.24.5, @babel/parser@npm:^7.24.7":
   version: 7.24.7
   resolution: "@babel/parser@npm:7.24.7"
   bin:
@@ -3177,7 +3196,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.10.3, @babel/types@npm:^7.22.5, @babel/types@npm:^7.24.5, @babel/types@npm:^7.24.7, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.10.3, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.5, @babel/types@npm:^7.24.5, @babel/types@npm:^7.24.7, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
   version: 7.24.7
   resolution: "@babel/types@npm:7.24.7"
   dependencies:
@@ -4108,6 +4127,7 @@ __metadata:
     "@angular/compiler-cli": "npm:^18.0.4"
     "@angular/core": "npm:^18.0.4"
     "@angular/forms": "npm:^18.0.4"
+    "@angular/localize": "npm:18.0.4"
     "@angular/material": "npm:18.0.4"
     "@angular/material-luxon-adapter": "npm:^18.0.4"
     "@angular/platform-browser": "npm:^18.0.4"
@@ -6676,6 +6696,47 @@ __metadata:
   dependencies:
     aws-sdk: "npm:*"
   checksum: 10/0ede5d854ebed5caddc33a1b7a856f31aa022f8887635851fd13a7dc69046774bbfb864891a0106d4be84fc7c3ab8c2a96bd5c10e99ccc3661fb12019ce47f7c
+  languageName: node
+  linkType: hard
+
+"@types/babel__core@npm:7.20.5":
+  version: 7.20.5
+  resolution: "@types/babel__core@npm:7.20.5"
+  dependencies:
+    "@babel/parser": "npm:^7.20.7"
+    "@babel/types": "npm:^7.20.7"
+    "@types/babel__generator": "npm:*"
+    "@types/babel__template": "npm:*"
+    "@types/babel__traverse": "npm:*"
+  checksum: 10/c32838d280b5ab59d62557f9e331d3831f8e547ee10b4f85cb78753d97d521270cebfc73ce501e9fb27fe71884d1ba75e18658692c2f4117543f0fc4e3e118b3
+  languageName: node
+  linkType: hard
+
+"@types/babel__generator@npm:*":
+  version: 7.6.8
+  resolution: "@types/babel__generator@npm:7.6.8"
+  dependencies:
+    "@babel/types": "npm:^7.0.0"
+  checksum: 10/b53c215e9074c69d212402990b0ca8fa57595d09e10d94bda3130aa22b55d796e50449199867879e4ea0ee968f3a2099e009cfb21a726a53324483abbf25cd30
+  languageName: node
+  linkType: hard
+
+"@types/babel__template@npm:*":
+  version: 7.4.4
+  resolution: "@types/babel__template@npm:7.4.4"
+  dependencies:
+    "@babel/parser": "npm:^7.1.0"
+    "@babel/types": "npm:^7.0.0"
+  checksum: 10/d7a02d2a9b67e822694d8e6a7ddb8f2b71a1d6962dfd266554d2513eefbb205b33ca71a0d163b1caea3981ccf849211f9964d8bd0727124d18ace45aa6c9ae29
+  languageName: node
+  linkType: hard
+
+"@types/babel__traverse@npm:*":
+  version: 7.20.6
+  resolution: "@types/babel__traverse@npm:7.20.6"
+  dependencies:
+    "@babel/types": "npm:^7.20.7"
+  checksum: 10/63d13a3789aa1e783b87a8b03d9fb2c2c90078de7782422feff1631b8c2a25db626e63a63ac5a1465d47359201c73069dacb4b52149d17c568187625da3064ae
   languageName: node
   linkType: hard
 

@@ -28,22 +28,22 @@ async function applyWhere<T extends Knex.QueryBuilder<any, any>>(
 
   if (where.applicationStatus) {
     void query
-      .where('job_application.user_id', authenticatedUser.id)
-      .where('job_application.status', where.applicationStatus);
+      .where('jobs_applications.user_id', authenticatedUser.id)
+      .where('jobs_applications.status', where.applicationStatus);
   }
 
   if (where.nameContains) {
-    void query.where('name', 'ilike', `%${where.nameContains}%`);
+    void query.where('jobs.title', 'ilike', `%${where.nameContains}%`);
   }
 
   if (typeof where.archived === 'boolean') {
-    void query.where('archived', where.archived);
+    void query.where('jobs.archived', where.archived);
   }
 }
 
 async function applyJoin<T extends Knex.QueryBuilder<any, any>>(query: T, where: JobsQueryVariables['where']) {
   if (where?.applicationStatus) {
-    void query.join('job_application', 'job_application.job_id', 'jobs.id');
+    void query.leftJoin('jobs_applications', 'jobs_applications.job_id', 'jobs.id');
   }
 }
 
@@ -52,7 +52,7 @@ export const Jobs: JobHubResolver<PaginatedResponse<DbJobs>, JobsQueryVariables,
   { limit = 10, offset = 0, orderBy = 'createdAt_DESC', where = {} },
   { db, authenticatedUser },
 ) => {
-  const query = db('jobs').select('*');
+  const query = db('jobs').select('jobs.*');
 
   void applyJoin(query, where);
   void applyWhere(query, where, authenticatedUser);
@@ -62,7 +62,7 @@ export const Jobs: JobHubResolver<PaginatedResponse<DbJobs>, JobsQueryVariables,
     title: 'title',
   });
 
-  void query.orderBy(column, order);
+  void query.orderBy([{ column, order }]);
 
   const count = await getCountFromQuery(query);
   const data = await query.limit(limit).offset(offset);

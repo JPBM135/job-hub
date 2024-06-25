@@ -68,6 +68,8 @@ export const schema = gql`
     application: JobApplication
     archived: Boolean!
     createdAt: String!
+    updatedAt: String!
+    createdBy: User!
   }
 
   enum JobApplicationStatus {

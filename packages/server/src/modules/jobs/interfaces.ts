@@ -5,6 +5,7 @@ export type GraphQlJobApplication = TransformRecordToCamelCase<TypedOmit<JobsApp
   user: Users;
 };
 
-export type GraphQlJob = TransformRecordToCamelCase<Jobs> & {
+export type GraphQlJob = TransformRecordToCamelCase<TypedOmit<Jobs, 'created_by'>> & {
   application: JobsApplications | null;
+  createdBy: Users;
 };

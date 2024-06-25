@@ -61,6 +61,11 @@ export const resolvers: JobResolvers = {
 
       return application ?? null;
     },
+    createdBy: async (_, __, { db }) => {
+      const user = await db('users').where('id', _.created_by).first();
+      return user!;
+    },
+    updatedAt: (_) => dateResolver(_.updated_at),
   },
   JobApplication: {
     job: async (_, __, { db }) => {
