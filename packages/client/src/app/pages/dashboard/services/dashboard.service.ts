@@ -20,7 +20,7 @@ export class DashboardService implements BasePaginationService {
 
   public pageInfo: WritableSignal<PageInfo | undefined> = signal(undefined);
 
-  public search$: Subject<void> = new Subject<void>();
+  public search$: Subject<boolean> = new Subject<boolean>();
 
   public skip: WritableSignal<number> = signal(0);
 
@@ -30,7 +30,7 @@ export class DashboardService implements BasePaginationService {
 
   public dataSource = signal<Jobs[]>([]);
 
-  public orderBy = signal('createdAt_ASC');
+  public orderBy = signal('createdAt_DESC');
 
   public filters = signal<JobsFilters>({
     search: '',
@@ -39,16 +39,16 @@ export class DashboardService implements BasePaginationService {
   });
 
   public constructor(private readonly jobsApiService: JobsApiService) {
-    this.search$.pipe(takeUntilDestroyed()).subscribe(() => {
-      void this.searchJobs();
+    this.search$.pipe(takeUntilDestroyed()).subscribe((fromPagination) => {
+      void this.searchJobs(fromPagination);
     });
   }
 
-  public async searchJobs(): Promise<void> {
+  public async searchJobs(fromPagination: boolean): Promise<void> {
     this.isLoading.set(true);
 
-    this.jobsApiService
-      .getJobs({
+    const response = await firstValueFrom(
+      this.jobsApiService.getJobs({
         where: {
           applicationStatus: this.filters().applicationStatus ?? undefined,
           archived: this.filters().archived,
@@ -57,13 +57,22 @@ export class DashboardService implements BasePaginationService {
         orderBy: this.orderBy(),
         limit: this.take(),
         offset: this.skip(),
-      })
-      .subscribe((response) => {
-        this.dataSource.set(response.data);
-        this.isLoading.set(false);
-        this.pageInfo.set(response.pageInfo);
-        this.totalCount.set(response.pageInfo.count);
-      });
+      }),
+    );
+
+    if (!response) {
+      return;
+    }
+
+    if (fromPagination) {
+      this.dataSource.update((prevData) => [...prevData, ...response.data]);
+    } else {
+      this.dataSource.set(response.data);
+    }
+
+    this.isLoading.set(false);
+    this.pageInfo.set(response.pageInfo);
+    this.totalCount.set(response.pageInfo.count);
   }
 
   public resetFilters(): void {
@@ -74,7 +83,13 @@ export class DashboardService implements BasePaginationService {
     });
 
     this.skip.set(0);
-    this.search$.next();
+    this.search$.next(false);
+  }
+
+  public setOrderBy(orderBy: string): void {
+    this.orderBy.set(orderBy);
+    this.skip.set(0);
+    this.search$.next(false);
   }
 
   public setFilters(filters: JobsFilters): void {
@@ -84,7 +99,7 @@ export class DashboardService implements BasePaginationService {
     }));
 
     this.skip.set(0);
-    this.search$.next();
+    this.search$.next(false);
   }
 
   public async applyOrUpdateJobApplication(job: Jobs, status: string) {

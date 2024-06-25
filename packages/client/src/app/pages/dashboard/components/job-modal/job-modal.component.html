@@ -1,0 +1,177 @@
+<div class="flex flex-col gap-4 bg-slate-900 w-[700px] text-white p-8 rounded-sm">
+  <div class="flex flex-col gap-2">
+    @if (isEdit) {
+      <h2 class="text-lg font-semibold">Edit Job ({{ data?.job?.title }})</h2>
+    } @else {
+      <h2 class="text-lg font-semibold">Create Job</h2>
+    }
+  </div>
+  <div class="bg-gray-300/30 h-px w-full"></div>
+  <form [formGroup]="jobForm" class="flex flex-col gap-2">
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label class="text-gray-300">Title</mat-label>
+      <input class="text-gray-300" matInput [formControl]="getControl('title')" />
+      @if (hasError('title', 'required')) {
+        <mat-error class="text-red-600">Title is required</mat-error>
+      }
+      @if (hasError('title', 'minlength') || hasError('title', 'maxlength')) {
+        <mat-error class="text-red-600">Title must be between 5 and 255 characters</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label class="text-gray-300">Description</mat-label>
+      <textarea
+        #descriptionInput
+        class="text-gray-300 max-h-40"
+        matInput
+        [formControl]="getControl('description')"
+      ></textarea>
+      <mat-hint align="end">{{ descriptionInput.value.length }}/1024</mat-hint>
+      @if (hasError('description', 'minlength') || hasError('description', 'maxlength')) {
+        <mat-error class="text-red-600">Description must be between 10 and 1024 characters</mat-error>
+      }
+    </mat-form-field>
+    <!--     create type job_remote_status as enum ('remote', 'hybrid', 'onsite');
+    create type job_experience_level as enum ('internship', 'entry', 'mid', 'senior', 'lead', 'manager', 'executive');
+    create type job_type as enum ('full_time', 'part_time', 'contract', 'temporary', 'internship', 'volunteer', 'remote');
+    create type job_pay_type as enum ('hourly', 'daily', 'weekly', 'bi_weekly', 'monthly', 'yearly'); -->
+    <div class="flex justify-between gap-2">
+      <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+        <mat-label class="text-gray-300">Remote Status</mat-label>
+        <mat-select class="text-gray-300" [formControl]="getControl('remoteStatus')">
+          <mat-option value="remote">Remote</mat-option>
+          <mat-option value="hybrid">Hybrid</mat-option>
+          <mat-option value="onsite">Onsite</mat-option>
+        </mat-select>
+        @if (hasError('remoteStatus', 'required')) {
+          <mat-error class="text-red-600">Remote status is required</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+        <mat-label class="text-gray-300">Experience</mat-label>
+        <mat-select class="text-gray-300" [formControl]="getControl('experienceLevel')">
+          <mat-option value="internship">Internship</mat-option>
+          <mat-option value="entry">Entry</mat-option>
+          <mat-option value="mid">Mid</mat-option>
+          <mat-option value="senior">Senior</mat-option>
+          <mat-option value="lead">Lead</mat-option>
+          <mat-option value="manager">Manager</mat-option>
+          <mat-option value="executive">Executive (0_0)</mat-option>
+        </mat-select>
+        @if (hasError('experienceLevel', 'required')) {
+          <mat-error class="text-red-600">Experience level is required</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+        <mat-label class="text-gray-300">Type</mat-label>
+        <mat-select class="text-gray-300" [formControl]="getControl('type')">
+          <mat-option value="full_time">Full Time</mat-option>
+          <mat-option value="part_time">Part Time</mat-option>
+          <mat-option value="contract">Contract</mat-option>
+          <mat-option value="temporary">Temporary</mat-option>
+          <mat-option value="internship">Internship</mat-option>
+          <mat-option value="volunteer">Volunteer</mat-option>
+          <mat-option value="remote">Remote</mat-option>
+        </mat-select>
+        @if (hasError('type', 'required')) {
+          <mat-error class="text-red-600">Type is required</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div class="flex justify-between gap-2">
+      <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+        <mat-label class="text-gray-300">Pay Min</mat-label>
+        <input class="text-gray-300" type="number" matInput [formControl]="getControl('payMin')" />
+        @if (hasError('payMin', 'required')) {
+          <mat-error class="text-red-600">Pay min is required</mat-error>
+        }
+
+        @if (hasError('payMin', 'min')) {
+          <mat-error class="text-red-600">Pay min must be greater than 0</mat-error>
+        }
+
+        @if (hasError('payMin', 'pattern')) {
+          <mat-error class="text-red-600">Pay min must be a number</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+        <mat-label class="text-gray-300">Pay Max</mat-label>
+        <input class="text-gray-300" type="number" matInput [formControl]="getControl('payMax')" />
+        @if (hasError('payMax', 'required')) {
+          <mat-error class="text-red-600">Pay max is required</mat-error>
+        }
+
+        @if (hasError('payMax', 'min')) {
+          <mat-error class="text-red-600">Pay max must be greater than 0</mat-error>
+        }
+
+        @if (hasError('payMax', 'pattern')) {
+          <mat-error class="text-red-600">Pay max must be a number</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="flex justify-between gap-2">
+      <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+        <mat-label class="text-gray-300">Pay Type</mat-label>
+        <mat-select class="text-gray-300" [formControl]="getControl('payType')">
+          <mat-option value="hourly">Hourly</mat-option>
+          <mat-option value="daily">Daily</mat-option>
+          <mat-option value="weekly">Weekly</mat-option>
+          <mat-option value="bi_weekly">Bi-weekly</mat-option>
+          <mat-option value="monthly">Monthly</mat-option>
+          <mat-option value="yearly">Yearly</mat-option>
+        </mat-select>
+        @if (hasError('payType', 'required')) {
+          <mat-error class="text-red-600">Pay type is required</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+        <mat-label class="text-gray-300">Date posted</mat-label>
+        <input class="text-gray-300" matInput [matDatepicker]="picker" [formControl]="getControl('datePosted')" />
+        <mat-datepicker-toggle class="text-gray-300" matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+      <mat-label class="text-gray-300">Company</mat-label>
+      <input class="text-gray-300" matInput [formControl]="getControl('company')" />
+      @if (hasError('company', 'minlength') || hasError('company', 'maxlength')) {
+        <mat-error class="text-red-600">Company must be between 5 and 255 characters</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+      <mat-label class="text-gray-300">Location</mat-label>
+      <input class="text-gray-300" matInput [formControl]="getControl('location')" />
+      @if (hasError('location', 'minlength') || hasError('location', 'maxlength')) {
+        <mat-error class="text-red-600">Location must be between 5 and 1024 characters</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="outline" floatLabel="always">
+      <mat-label class="text-gray-300">Url</mat-label>
+      <input class="text-gray-300" matInput [formControl]="getControl('url')" />
+      @if (hasError('url', 'required')) {
+        <mat-error class="text-red-600">Url is required</mat-error>
+      }
+
+      @if (hasError('url', 'pattern')) {
+        <mat-error class="text-red-600">Url must be a valid url</mat-error>
+      }
+
+      @if (hasError('url', 'minlength') || hasError('url', 'maxlength')) {
+        <mat-error class="text-red-600">Url must be between 5 and 2048 characters</mat-error>
+      }
+    </mat-form-field>
+  </form>
+  <button
+    type="button"
+    (click)="submit()"
+    class="bg-cyan-500 p-2 rounded-lg text-white hover:bg-cyan-600 transition-colors"
+  >
+    @if (isEdit) {
+      Update Job
+    } @else {
+      Create Job
+    }
+  </button>
+</div>

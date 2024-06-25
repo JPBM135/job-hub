@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs';
+import type { Jobs } from '../../../@types/Jobs';
 import {
   APPLY_OR_UPDATE_JOB_APPLICATION_MUTATION,
   type ApplyOrUpdateApplicationJobMutationResult,
@@ -8,6 +9,8 @@ import {
   type GetJobsQueryResult,
   GET_JOBS_APPLICATIONS_QUERY,
   type GetJobApplicationsQueryResult,
+  CREATE_JOB_MUTATION,
+  type CreateJobMutationResult,
 } from './jobs-api.graphql';
 
 @Injectable({
@@ -60,5 +63,16 @@ export class JobsApiService {
         },
       })
       .pipe(map((response) => response.data.JobApplications));
+  }
+
+  public createJob(input: Jobs) {
+    return this.apollo
+      .mutate<CreateJobMutationResult>({
+        mutation: CREATE_JOB_MUTATION,
+        variables: {
+          input,
+        },
+      })
+      .pipe(map((response) => response.data?.CreateJob));
   }
 }

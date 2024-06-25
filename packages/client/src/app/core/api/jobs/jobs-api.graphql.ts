@@ -81,3 +81,17 @@ export const GET_JOBS_APPLICATIONS_QUERY = gql`
 export interface GetJobApplicationsQueryResult {
   JobApplications: JobsApplications[];
 }
+
+export const CREATE_JOB_MUTATION = gql`
+  mutation Mutation($input: JobInput!) {
+    CreateJob(input: $input) {
+      id
+    }
+  }
+`;
+
+export interface CreateJobMutationResult {
+  CreateJob: {
+    id: string;
+  };
+}
