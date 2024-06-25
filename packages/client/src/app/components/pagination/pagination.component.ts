@@ -28,7 +28,7 @@ export class PaginationComponent<T extends BasePaginationService> implements Aft
 
   public intersectionObserver?: IntersectionObserver;
 
-  public debouncedNextPage = debounce(this.nextPage.bind(this), 500);
+  public debouncedNextPage = debounce(this.nextPage.bind(this), 200);
 
   @ViewChild('divInterceptor') public divInterceptor!: ElementRef<HTMLDivElement>;
 
@@ -45,17 +45,17 @@ export class PaginationComponent<T extends BasePaginationService> implements Aft
   public async changePaginationSize(size: number): Promise<void> {
     this.service.take.update(() => size);
     this.service.skip.update(() => 0);
-    this.service.search$.next();
+    this.service.search$.next(true);
   }
 
   public async nextPage(): Promise<void> {
     this.service.skip.update((skip: number) => skip + Number(this.service.take()));
-    this.service.search$.next();
+    this.service.search$.next(true);
   }
 
   public async previousPage(): Promise<void> {
     this.service.skip.update((skip: number) => skip - Number(this.service.take()));
-    this.service.search$.next();
+    this.service.search$.next(true);
   }
 
   private computeNextPage() {

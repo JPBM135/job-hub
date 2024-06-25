@@ -3,8 +3,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { AuthApiService } from '../../core/api/auth/auth-api.service';
+import { AlertService } from '../../core/services/alert/alert.service';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 
 @Component({
@@ -24,6 +26,8 @@ export class LoginComponent {
   public constructor(
     private readonly authApiService: AuthApiService,
     private readonly authenticationService: AuthenticationService,
+    private readonly router: Router,
+    private readonly alertService: AlertService,
   ) {
     this.loadNonce();
   }
@@ -58,5 +62,8 @@ export class LoginComponent {
     }
 
     this.authenticationService.setUser(login.token, login.user);
+    void this.router.navigate(['/dashboard']);
+
+    this.alertService.showSuccess(`Logged in successfully, welcome ${login.user.name}`);
   }
 }

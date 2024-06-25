@@ -1,32 +1,45 @@
 <app-layout>
   <div class="flex flex-col h-full w-full bg-gray-950 p-8">
-    <h1 class="px-3 text-3xl font-semibold text-gray-300">Published Jobs</h1>
+    <div class="flex items-center justify-between">
+      <h1 class="px-3 text-3xl font-semibold text-gray-300">Published Jobs</h1>
+      <button
+        type="button"
+        (click)="createJob()"
+        matTooltip="Create a new job posting"
+        class="flex justify-between items-center gap-2 bg-blue-600 p-2 rounded-lg text-white hover:bg-blue-700 transition-colors"
+      >
+        <mat-icon fontSet="material-symbols-outlined" class="scale-90">add_circle</mat-icon>
+        New Job
+      </button>
+    </div>
 
     <form [formGroup]="searchForm" class="rounded-lg py-5 px-3 flex gap-8">
-      <div class="flex flex-col gap-2 text-white">
-        <label>Search</label>
-        <input formControlName="search" class="p-2 rounded-lg bg-slate-600 h-10 w-72" />
-      </div>
-      <div class="flex flex-col gap-2 text-white">
-        <label>My Application Status</label>
-        <select formControlName="applicationStatus" class="p-2 rounded-lg bg-slate-600 w-52 h-10">
-          <option [value]="null">All</option>
-          <option value="applied">Applied</option>
-          <option value="interviewing">Interviewing</option>
-          <option value="offered">Offered</option>
-          <option value="rejected">Rejected</option>
-          <option value="hired">Hired</option>
-        </select>
-      </div>
-      <div class="flex flex-col gap-2 text-white">
-        <label>Order By</label>
-        <select formControlName="orderBy" class="p-2 rounded-lg bg-slate-600 w-52 h-10">
-          <option value="createdAt_ASC">Newest</option>
-          <option value="createdAt_DESC">Oldest</option>
-          <option value="title_ASC">Title A-Z</option>
-          <option value="title_DESC">Title Z-A</option>
-        </select>
-      </div>
+      <mat-form-field appearance="outline" class="w-72" floatLabel="always">
+        <mat-label class="text-gray-300">Search</mat-label>
+        <input class="text-gray-300" formControlName="search" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-52" floatLabel="always">
+        <mat-label class="text-gray-300">My Application Status</mat-label>
+        <mat-select class="text-gray-300" formControlName="applicationStatus">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option value="applied">Applied</mat-option>
+          <mat-option value="interviewing">Interviewing</mat-option>
+          <mat-option value="offered">Offered</mat-option>
+          <mat-option value="rejected">Rejected</mat-option>
+          <mat-option value="hired">Hired</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-52" floatLabel="always">
+        <mat-label class="text-gray-300">Order By</mat-label>
+        <mat-select class="text-gray-300" [formControl]="orderByForm">
+          <mat-option value="createdAt_DESC">Newest</mat-option>
+          <mat-option value="createdAt_ASC">Oldest</mat-option>
+          <mat-option value="title_ASC">Title A-Z</mat-option>
+          <mat-option value="title_DESC">Title Z-A</mat-option>
+        </mat-select>
+      </mat-form-field>
     </form>
     <div class="grid grid-flow-dense grid-cols-[repeat(auto-fill,minmax(500px,1fr))] justify-center gap-8 p-3">
       @for (job of dashboardService.dataSource(); track job.id) {
@@ -35,5 +48,9 @@
         <div class="text-white text-center">No jobs found with current filters</div>
       }
     </div>
+    @if (dashboardService.pageInfo() && !dashboardService.pageInfo()?.hasNextPage) {
+      <div class="text-white text-center">No more jobs to show :(</div>
+    }
+    <app-pagination [service]="dashboardService"></app-pagination>
   </div>
 </app-layout>
