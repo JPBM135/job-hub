@@ -4,7 +4,7 @@ name: 'job-hub-compose'
 
 services:
   postgres:
-    image: postgres:15.3
+    image: postgres:latest
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'test'

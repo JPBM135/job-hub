@@ -1,0 +1,5 @@
+.esbuild/**/*
+.serverless/**/*
+dist/**/*
+node_modules/**/*
+src/@types/db.schema.ts
