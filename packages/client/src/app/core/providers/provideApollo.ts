@@ -3,19 +3,16 @@ import { InMemoryCache, type ApolloClientOptions } from '@apollo/client/core';
 import { onError } from '@apollo/client/link/error';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environment/environment';
 import { ErrorHandlerService } from '../services/error-handler/error-handler.service';
 
 export function provideApollo() {
   return [
     {
       provide: APOLLO_OPTIONS,
-      useFactory(
-        httpLink: HttpLink,
-        errorHandlerService: ErrorHandlerService,
-      ): ApolloClientOptions<any> {
+      useFactory(httpLink: HttpLink, errorHandlerService: ErrorHandlerService): ApolloClientOptions<any> {
         const http = httpLink.create({
-          uri: environment.eyeOfSauron,
+          uri: environment.apiUrl,
         });
 
         const errorLink = onError((data) => {
@@ -41,7 +38,7 @@ export function provideApollo() {
             },
           },
           link,
-          name: 'Cirith-Ungol-Client',
+          name: 'Job-Hub-Client',
         };
       },
       deps: [HttpLink, ErrorHandlerService],

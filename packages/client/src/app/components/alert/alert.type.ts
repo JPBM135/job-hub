@@ -3,11 +3,7 @@ import type { WritableSignal } from '@angular/core';
 export type AlertComponentType = 'error' | 'info' | 'success' | 'warning';
 
 export interface AlertComponentTheme {
-  color:
-    | 'info-icon-default'
-    | 'negative-icon-default'
-    | 'positive-icon-default'
-    | 'warning-icon-default';
+  color: 'blue-600' | 'emerald-600' | 'red-600' | 'yellow-600';
   icon: string;
 }
 

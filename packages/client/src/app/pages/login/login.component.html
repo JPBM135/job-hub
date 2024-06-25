@@ -1,0 +1,41 @@
+<div class="w-screen h-screen bg-slate-950 flex flex-col justify-center items-center">
+  <div class="flex flex-col justify-center items-center gap-8">
+    <div class="text-center text-white text-3xl font-bold">Welcome to <span class="text-blue-500">Job Hub</span></div>
+    <form [formGroup]="loginForm" class="bg-slate-700/40 rounded-lg p-10 flex flex-col gap-4 w-96">
+      <div class="flex flex-col gap-2 text-white">
+        <label>Email*</label>
+        <input autocomplete="email" formControlName="email" type="email" class="p-2 rounded-lg bg-slate-600" />
+        <div class="h-3">
+          @if (hasControlError('email', 'required')) {
+            <div class="text-red-800 text-sm">Email is required</div>
+          } @else if (hasControlError('email', 'email')) {
+            <div class="text-red-800 text-sm">Email is invalid</div>
+          }
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 text-white">
+        <label>Password*</label>
+        <input
+          autocomplete="current-password"
+          formControlName="password"
+          type="password"
+          class="p-2 rounded-lg bg-slate-600"
+        />
+        <div class="h-3">
+          @if (hasControlError('password', 'required')) {
+            <div class="text-red-800 text-sm">Password is required</div>
+          }
+        </div>
+      </div>
+
+      <button
+        [disabled]="loginForm.invalid"
+        type="button"
+        (click)="login()"
+        class="bg-blue-500 text-white p-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-700"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>
