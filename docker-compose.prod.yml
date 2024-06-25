@@ -19,6 +19,7 @@ services:
 
   server:
     restart: unless-stopped
+    network_mode: host
     build:
       context: .
       dockerfile: ./docker/server/Dockerfile
@@ -26,5 +27,3 @@ services:
       - ./packages/server/.env.prod
     environment:
       - ENVIRONMENT=prod
-    ports:
-      - '443:4000'

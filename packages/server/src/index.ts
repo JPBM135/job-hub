@@ -10,6 +10,7 @@ import { config } from './config.js';
 import { createContext } from './core/context/createContext.js';
 import DisconnectDatabasePlugin from './core/database/cleanDatabasePlugin.js';
 import { RequireAuthDirective } from './core/directives/authDirective.js';
+import { registerPort } from './core/express/registerPort.js';
 import ApolloServerSentryPlugin from './core/sentry/apolloServerSentry.js';
 import { Sentry } from './core/sentry/sentry.js';
 import { registerSignalEvents } from './core/utils/registerSignalEvents.js';
@@ -37,7 +38,12 @@ const app = express();
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    allowedHeaders: ['*'],
+    origin: '*',
+  }),
+);
 app.use(
   express.json({
     limit: '5mb',
@@ -65,9 +71,7 @@ app.use(
 );
 app.use(Sentry.Handlers.errorHandler());
 
-// eslint-disable-next-line no-promise-executor-return
-await new Promise<void>((resolve) => app.listen({ port: config.port }, resolve));
-console.log(`Server is running on port ${config.port}`);
+await registerPort(app);
 
 app.on('error', (error) => {
   console.error(error);
