@@ -27,6 +27,16 @@ const { ENVIRONMENT } = process.env as {
   ENVIRONMENT?: 'dev' | 'prod';
 };
 
+if (ENVIRONMENT === 'prod') {
+  for (const key of Object.keys(env.dev)) {
+    if (process.env[key] === undefined && env.prod[key as keyof Env['prod']] === undefined) {
+      throw new Error(`Missing environment variable: ${key}`);
+    }
+
+    Reflect.set(env.prod, key, process.env[key]);
+  }
+}
+
 const nodeEnv = ENVIRONMENT === 'prod' ? 'prod' : 'dev';
 
 const envConfig = env[nodeEnv];
