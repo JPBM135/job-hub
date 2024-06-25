@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -69,6 +69,7 @@ export class JobModalComponent {
     @Inject(MAT_DIALOG_DATA) public data: { job: Jobs } | null,
     private readonly jobsApiService: JobsApiService,
     private readonly alertService: AlertService,
+    private readonly matDialogRef: MatDialogRef<JobModalComponent>,
   ) {
     if (this.isEdit) {
       this.jobForm.patchValue({
@@ -114,6 +115,7 @@ export class JobModalComponent {
     const createdJob = await firstValueFrom(this.jobsApiService.createJob(job));
     if (createdJob) {
       this.alertService.showSuccess('Job created successfully, thank you!');
+      this.matDialogRef.close();
     }
   }
 

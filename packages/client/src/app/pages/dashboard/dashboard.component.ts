@@ -66,6 +66,11 @@ export class DashboardComponent implements OnInit {
   }
 
   public createJob(): void {
-    this.matDialog.open(JobModalComponent);
+    this.matDialog
+      .open(JobModalComponent)
+      .afterClosed()
+      .subscribe(() => {
+        void this.dashboardService.searchJobs(false);
+      });
   }
 }
