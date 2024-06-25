@@ -1,0 +1,92 @@
+.mat-mdc-select-panel,
+.mat-mdc-menu-panel,
+.mat-mdc-autocomplete-panel {
+  margin-top: 4px !important;
+  border-radius: 6px !important;
+  border: 1px solid #d4def148 !important;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1) !important;
+  padding: 0px !important;
+}
+
+.mat-mdc-select-panel {
+  @apply bg-slate-700 #{!important};
+}
+
+.mat-mdc-form-field-required-marker {
+  color: #f44336 !important;
+}
+
+.mat-mdc-select-arrow {
+  color: #d4def1 !important;
+}
+
+.mat-mdc-option,
+.mat-mdc-menu-item {
+  transition-property: background-color !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-duration: 150ms !important;
+  border-bottom: 1px solid #d4def148 !important;
+  @apply bg-slate-700/40 text-gray-50  #{!important};
+  --mat-option-selected-state-label-text-color: rgb(59 130 246) !important;
+}
+
+.mat-mdc-option:last-child,
+.mat-mdc-menu-item:last-child {
+  border-bottom: none !important;
+}
+
+.mat-mdc-option:hover,
+.mat-mdc-menu-item:hover {
+  @apply bg-slate-800/60 #{!important};
+}
+
+.mat-mdc-text-field-wrapper {
+  @apply bg-gray-800/20;
+}
+
+.mat-mdc-menu-content {
+  padding: 0px !important;
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #d4def1 !important;
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch {
+  border-right-style: hidden !important;
+}
+
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field
+  .mdc-notched-outline__notch {
+  border-left-style: hidden !important;
+}
+
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #f44336 !important;
+}
+
+.mat-mdc-autocomplete-panel {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Chrome, Edge, and Safari */
+.mat-mdc-autocomplete-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mat-mdc-autocomplete-panel::-webkit-scrollbar-track {
+  background: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 3px solid transparent;
+}
