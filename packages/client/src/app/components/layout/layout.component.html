@@ -42,6 +42,14 @@
           <button
             type="button"
             class="flex w-full items-center justify-between py-2 font-medium text-gray-300"
+            (click)="openUserMenu()"
+          >
+            <span>Edit user</span>
+            <mat-icon fontSet="material-symbols-outlined" class="scale-75 text-gray-300">manage_accounts</mat-icon>
+          </button>
+          <button
+            type="button"
+            class="flex w-full items-center justify-between py-2 font-medium text-gray-300"
             (click)="logout()"
           >
             <span>Logout</span>
