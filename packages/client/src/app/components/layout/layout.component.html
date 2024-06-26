@@ -6,57 +6,61 @@
   class="grid min-h-screen bg-slate-950"
 >
   <div
-    class="flex max-h-18 w-full items-center justify-end gap-6 border-0 border-b border-solid border-gray-800 bg-slate-900 px-6 py-3"
+    class="flex max-h-18 w-full items-center justify-between gap-6 border-0 border-b border-solid border-gray-800 bg-slate-900 px-6 py-3"
   >
-    <div class="flex gap-4">
-      @for (header of headers; track header.label) {
-        <div class="flex items-center gap-2 text-white rounded-lg hover:bg-slate-700 py-2 px-3">
-          <mat-icon
-            [ngClass]="{
-              'text-info-icon-default': header.link === '/',
-              'text-new-gray-200': header.link !== '/'
-            }"
-            class="scale-75"
-            >{{ header.icon }}</mat-icon
-          >
-          <a [routerLink]="header.link" class="text-base font-medium text-gray-300">{{ header.label }}</a>
-        </div>
-      }
+    <div class="flex items-center gap-4 text-white font-semibold">
+      <img src="favicon.png" alt="Image logo" class="h-7" />
+      <h2 class="text-lg">Job Hub</h2>
     </div>
-    <div class="h-5 w-px bg-new-gray-200"></div>
-    <div class="flex items-center gap-2 rounded-full bg-new-gray-50 px-2 py-1">
-      <span class="text-base font-medium text-gray-300">{{ loggedInUser?.name ?? 'Whattttt?' }}</span>
-
-      <mat-icon
-        role="button"
-        (click)="toggleMenu($event)"
-        class="scale-90 text-gray-300 transition-transform"
-        [ngClass]="{
-          'rotate-180': menuOpen()
-        }"
-        >keyboard_arrow_down</mat-icon
-      >
-
-      @if (menuOpen()) {
-        <div class="absolute right-5 top-12 z-50 w-48 rounded-lg bg-slate-800 p-4 shadow-lg" id="header_menu">
-          <button
-            type="button"
-            class="flex w-full items-center justify-between py-2 font-medium text-gray-300"
-            (click)="openUserMenu()"
-          >
-            <span>Edit user</span>
-            <mat-icon fontSet="material-symbols-outlined" class="scale-75 text-gray-300">manage_accounts</mat-icon>
-          </button>
-          <button
-            type="button"
-            class="flex w-full items-center justify-between py-2 font-medium text-gray-300"
-            (click)="logout()"
-          >
-            <span>Logout</span>
-            <mat-icon class="scale-75 text-gray-300">logout</mat-icon>
-          </button>
-        </div>
-      }
+    <div class="flex justify-end items-center gap-4">
+      <div class="flex gap-4">
+        @for (header of headers; track header.label) {
+          <div class="flex items-center gap-2 text-white rounded-lg hover:bg-slate-700 py-2 px-3">
+            <mat-icon
+              [ngClass]="{
+                'text-info-icon-default': header.link === '/',
+                'text-new-gray-200': header.link !== '/'
+              }"
+              class="scale-75"
+              >{{ header.icon }}</mat-icon
+            >
+            <a [routerLink]="header.link" class="text-base font-medium text-gray-300">{{ header.label }}</a>
+          </div>
+        }
+      </div>
+      <div class="h-5 w-px bg-new-gray-200"></div>
+      <div class="flex items-center gap-2 rounded-full bg-new-gray-50 px-2 py-1">
+        <span class="text-base font-medium text-gray-300">{{ loggedInUser?.name ?? 'Whattttt?' }}</span>
+        <mat-icon
+          role="button"
+          (click)="toggleMenu($event)"
+          class="scale-90 text-gray-300 transition-transform"
+          [ngClass]="{
+            'rotate-180': menuOpen()
+          }"
+          >keyboard_arrow_down</mat-icon
+        >
+        @if (menuOpen()) {
+          <div class="absolute right-5 top-12 z-50 w-48 rounded-lg bg-slate-800 p-4 shadow-lg" id="header_menu">
+            <button
+              type="button"
+              class="flex w-full items-center justify-between py-2 font-medium text-gray-300"
+              (click)="openUserMenu()"
+            >
+              <span>Edit user</span>
+              <mat-icon fontSet="material-symbols-outlined" class="scale-75 text-gray-300">manage_accounts</mat-icon>
+            </button>
+            <button
+              type="button"
+              class="flex w-full items-center justify-between py-2 font-medium text-gray-300"
+              (click)="logout()"
+            >
+              <span>Logout</span>
+              <mat-icon class="scale-75 text-gray-300">logout</mat-icon>
+            </button>
+          </div>
+        }
+      </div>
     </div>
   </div>
 
