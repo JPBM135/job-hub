@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "description": "Job Hunt Platform",
   "scripts": {
-    "build": "yarn workspaces foreach --parallel --topological run build",
-    "test": "yarn workspaces foreach --parallel --topological run test",
-    "lint": "yarn workspaces foreach --parallel --topological run lint",
-    "lint-fix": "yarn workspaces foreach --parallel --topological run lint-fix",
-    "format": "yarn workspaces foreach --parallel --topological run format",
-    "start": "yarn workspaces foreach --parallel --topological run start",
+    "build": "yarn workspaces foreach -A --parallel --topological run build",
+    "test": "yarn workspaces foreach -A --parallel --topological run test",
+    "lint": "yarn workspaces foreach -A --parallel --topological run lint",
+    "lint-fix": "yarn workspaces foreach -A --parallel --topological run lint-fix",
+    "format": "yarn workspaces foreach -A --parallel --topological run format",
+    "start": "yarn workspaces foreach -A --parallel --topological run start",
     "fmt": "yarn format",
     "postinstall": "is-ci || husky install",
     "update": "yarn upgrade-interactive"

@@ -8,7 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:job-hub": "node dist/job-hub/server/server.mjs"
+    "lint-fix": "DEBUG=eslint:cli-engine eslint src --ext ts --fix && prettier --write src",
+    "lint": "DEBUG=eslint:cli-engine eslint src --ext ts && prettier --check src"
   },
   "private": true,
   "dependencies": {

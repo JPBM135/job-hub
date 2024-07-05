@@ -3,3 +3,4 @@ dist/
 node_modules/
 .esbuild/**/*
 user-theme.scss
+**/@types/db.schema.ts

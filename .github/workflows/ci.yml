@@ -1,0 +1,67 @@
+name: Continuous integration
+
+on:
+  push:
+    branches:
+      - '**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.head_commit.author.email }}
+  cancel-in-progress: true
+
+jobs:
+  server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: job-hub
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: job-hub/.nvmrc
+          cache: 'yarn'
+          cache-dependency-path: job-hub/yarn.lock
+
+      - name: Install dependencies
+        working-directory: job-hub
+        run: yarn --immutable
+
+      - name: Lint
+        working-directory: job-hub
+        run: yarn workspace @job-hub/server lint
+
+      - name: Build
+        working-directory: job-hub
+        run: yarn workspace @job-hub/server build
+
+  client:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: job-hub
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: job-hub/.nvmrc
+          cache: 'yarn'
+          cache-dependency-path: job-hub/yarn.lock
+
+      - name: Install dependencies
+        working-directory: job-hub
+        run: yarn --immutable
+
+      - name: Lint
+        working-directory: job-hub
+        run: yarn workspace @job-hub/client lint
+
+      - name: Build
+        working-directory: job-hub
+        run: yarn workspace @job-hub/client build

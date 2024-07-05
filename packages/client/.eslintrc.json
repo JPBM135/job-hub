@@ -1,5 +1,4 @@
 {
-  "root": true,
   "env": {
     "es6": true
   },
@@ -46,10 +45,7 @@
       "files": ["*.html"],
       "parser": "@angular-eslint/template-parser",
       "plugins": ["@angular-eslint/template"],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended",
-        "plugin:@angular-eslint/template/accessibility"
-      ],
+      "extends": ["plugin:@angular-eslint/template/recommended", "plugin:@angular-eslint/template/accessibility"],
       "rules": {
         "@angular-eslint/template/alt-text": 2,
         "@angular-eslint/template/elements-content": 2,
