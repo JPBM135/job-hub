@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,7 +39,11 @@ export class LayoutComponent {
     fromEvent(document, 'click')
       .pipe(takeUntilDestroyed())
       .subscribe((event) => {
-        if (event.target && this.menuOpen() && (event.target as HTMLElement).parentElement?.id !== 'header_menu') {
+        if (
+          event.target &&
+          this.menuOpen() &&
+          (event.target as HTMLElement).parentElement?.id !== 'header_menu'
+        ) {
           this.menuOpen.set(false);
         }
       });

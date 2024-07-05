@@ -66,7 +66,9 @@ describe('verifyAuthToken', () => {
     const data = { created: Date.now() - MAX_LOGIN_AGE * 2 };
     const encodedData = Buffer.from(JSON.stringify(data)).toString('base64url');
 
-    const hmac = createHmac('sha512', config.secret.loginHmac).update(encodedData).digest('base64url');
+    const hmac = createHmac('sha512', config.secret.loginHmac)
+      .update(encodedData)
+      .digest('base64url');
     const authToken = `${encodedData}.${hmac}`;
 
     const result = verifyAuthToken(authToken);
@@ -124,11 +126,20 @@ describe('verifyAuthToken', () => {
   });
 
   it('given an tempered encodedData, should return false', () => {
-    const [encodedData, encodedUser, hmac] = REALLY_LONG_LIVED_TOKEN.split('.') as [string, string, string];
+    const [encodedData, encodedUser, hmac] = REALLY_LONG_LIVED_TOKEN.split(
+      '.',
+    ) as [string, string, string];
 
-    const data = JSON.parse(Buffer.from(encodedData, 'base64url').toString('utf8'));
-    const stringifiedData = JSON.stringify({ ...data, created: data.created - 1_000 });
-    const temperedEncodedData = Buffer.from(stringifiedData, 'utf8').toString('base64url');
+    const data = JSON.parse(
+      Buffer.from(encodedData, 'base64url').toString('utf8'),
+    );
+    const stringifiedData = JSON.stringify({
+      ...data,
+      created: data.created - 1_000,
+    });
+    const temperedEncodedData = Buffer.from(stringifiedData, 'utf8').toString(
+      'base64url',
+    );
 
     const authToken = `${temperedEncodedData}.${encodedUser}.${hmac}`;
 
@@ -141,11 +152,20 @@ describe('verifyAuthToken', () => {
   });
 
   it('given an tempered encodedUser, should return false', () => {
-    const [encodedData, encodedUser, hmac] = REALLY_LONG_LIVED_TOKEN.split('.') as [string, string, string];
+    const [encodedData, encodedUser, hmac] = REALLY_LONG_LIVED_TOKEN.split(
+      '.',
+    ) as [string, string, string];
 
-    const user = JSON.parse(Buffer.from(encodedUser, 'base64url').toString('utf8'));
-    const stringifiedUser = JSON.stringify({ ...user, id: '00000000-0000-0000-0000-000000000000' });
-    const temperedEncodedUser = Buffer.from(stringifiedUser, 'utf8').toString('base64url');
+    const user = JSON.parse(
+      Buffer.from(encodedUser, 'base64url').toString('utf8'),
+    );
+    const stringifiedUser = JSON.stringify({
+      ...user,
+      id: '00000000-0000-0000-0000-000000000000',
+    });
+    const temperedEncodedUser = Buffer.from(stringifiedUser, 'utf8').toString(
+      'base64url',
+    );
 
     const authToken = `${encodedData}.${temperedEncodedUser}.${hmac}`;
 

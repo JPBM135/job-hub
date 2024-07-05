@@ -39,7 +39,9 @@ describe('RequireAuthDirective', () => {
       const castError = error as JobHubError;
 
       expect(castError).toBeInstanceOf(JobHubError);
-      expect(castError.message).toBe('You must be authenticated to access this resource');
+      expect(castError.message).toBe(
+        'You must be authenticated to access this resource',
+      );
       expect(castError.extensions.code).toBe(JobHubErrorCodes.Unauthorized);
     }
   });
@@ -51,7 +53,14 @@ describe('RequireAuthDirective', () => {
 
     const helloField = wrappedSchema.getQueryType()?.getFields().hello;
 
-    expect(await helloField!.resolve!({}, {}, { authenticatedUser: true }, {} as any)).toBe('Hello World!');
+    expect(
+      await helloField!.resolve!(
+        {},
+        {},
+        { authenticatedUser: true },
+        {} as any,
+      ),
+    ).toBe('Hello World!');
   });
 
   it('RequireAuthDirective should not throw an error when directive is not present', async () => {
@@ -63,6 +72,8 @@ describe('RequireAuthDirective', () => {
 
     const helloField = wrappedSchema.getQueryType()?.getFields().hello;
 
-    expect(await helloField!.resolve!({}, {}, {}, {} as any)).toBe('Hello World!');
+    expect(await helloField!.resolve!({}, {}, {}, {} as any)).toBe(
+      'Hello World!',
+    );
   });
 });

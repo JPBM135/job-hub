@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal, type OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  type OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,7 +56,10 @@ export class DashboardComponent implements OnInit {
       this.isLoading.set(true);
       this.dashboardService.setFilters({
         search: value.search ?? undefined,
-        applicationStatus: value.applicationStatus === 'null' ? null : value.applicationStatus ?? undefined,
+        applicationStatus:
+          value.applicationStatus === 'null'
+            ? null
+            : value.applicationStatus ?? undefined,
         archived: value.archived ?? undefined,
       });
     });

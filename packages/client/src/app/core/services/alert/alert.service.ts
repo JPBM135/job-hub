@@ -73,7 +73,10 @@ export class AlertService {
     return id;
   }
 
-  public showProgressAlert(progress$: Observable<UploadProgress>, fileName?: string) {
+  public showProgressAlert(
+    progress$: Observable<UploadProgress>,
+    fileName?: string,
+  ) {
     const id = generateRandomId();
 
     const ellipsedFileName = fileEllipsis(fileName ?? '', 20);

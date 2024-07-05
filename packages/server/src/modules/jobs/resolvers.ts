@@ -1,4 +1,7 @@
-import type { Jobs as DbJobs, JobsApplications } from '../../@types/db.schema.js';
+import type {
+  Jobs as DbJobs,
+  JobsApplications,
+} from '../../@types/db.schema.js';
 import { dateResolver } from '../../core/utils/dateResolver.js';
 import type { JobHubResolverMap, JobHubUnitResolver } from '../interfaces.js';
 import type { GraphQlJob, GraphQlJobApplication } from './interfaces.js';
@@ -12,7 +15,11 @@ import { Jobs } from './queries/jobs.js';
 
 interface UnitResolvers {
   Job: JobHubUnitResolver<DbJobs, GraphQlJob, true>;
-  JobApplication: JobHubUnitResolver<JobsApplications, GraphQlJobApplication, true>;
+  JobApplication: JobHubUnitResolver<
+    JobsApplications,
+    GraphQlJobApplication,
+    true
+  >;
 }
 
 type JobResolvers = JobHubResolverMap<

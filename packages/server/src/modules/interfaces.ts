@@ -1,24 +1,39 @@
-import type { AddStringToDates, AppContext, If, TransformRecordToCamelCase, TypedOmit } from '../@types/index.js';
+import type {
+  AddStringToDates,
+  AppContext,
+  If,
+  TransformRecordToCamelCase,
+  TypedOmit,
+} from '../@types/index.js';
 
-type MutualResolver = JobHubResolver<unknown, any, true> | JobHubResolver<unknown, any>;
+type MutualResolver =
+  | JobHubResolver<unknown, any, true>
+  | JobHubResolver<unknown, any>;
 
-type MaybeExtendsMutualMutationResolver<TMutationResolvers> = TMutationResolvers extends Record<string, MutualResolver>
-  ? {
-      Mutation: {
-        [TMutationResolverKey in keyof TMutationResolvers]: TMutationResolvers[TMutationResolverKey];
-      };
-    }
+type MaybeExtendsMutualMutationResolver<TMutationResolvers> =
+  TMutationResolvers extends Record<string, MutualResolver>
+    ? {
+        Mutation: {
+          [TMutationResolverKey in keyof TMutationResolvers]: TMutationResolvers[TMutationResolverKey];
+        };
+      }
+    : {};
+
+type MaybeExtendsMutualQueryResolver<TQueriesResolvers> =
+  TQueriesResolvers extends Record<string, MutualResolver>
+    ? {
+        Query: {
+          [TQueryResolverKey in keyof TQueriesResolvers]: TQueriesResolvers[TQueryResolverKey];
+        };
+      }
+    : {};
+
+type MaybeExtendsUnitResolver<T> = T extends JobHubUnitResolver<
+  unknown,
+  unknown
+>
+  ? T
   : {};
-
-type MaybeExtendsMutualQueryResolver<TQueriesResolvers> = TQueriesResolvers extends Record<string, MutualResolver>
-  ? {
-      Query: {
-        [TQueryResolverKey in keyof TQueriesResolvers]: TQueriesResolvers[TQueryResolverKey];
-      };
-    }
-  : {};
-
-type MaybeExtendsUnitResolver<T> = T extends JobHubUnitResolver<unknown, unknown> ? T : {};
 
 type AppContextWithoutUser = TypedOmit<AppContext, 'authenticatedUser'> & {
   authenticatedUser: null;
@@ -46,7 +61,11 @@ export type JobHubResolverMap<
     [TUnitResolverKey in keyof TUnitResolvers]: TUnitResolvers[TUnitResolverKey];
   }>;
 
-export type JobHubUnitResolver<TParent, TArgs = TransformRecordToCamelCase<TParent>, TIsAuth = false> = {
+export type JobHubUnitResolver<
+  TParent,
+  TArgs = TransformRecordToCamelCase<TParent>,
+  TIsAuth = false,
+> = {
   [P in keyof TArgs]?: (
     parent: TParent,
     args: TArgs,

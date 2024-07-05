@@ -12,7 +12,13 @@ import { JobApplicantsModalComponent } from '../job-applicants-modal/job-applica
 @Component({
   selector: 'app-job-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatTooltipModule, TooltipWhenTruncatedDirective, CapitalizePipe],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTooltipModule,
+    TooltipWhenTruncatedDirective,
+    CapitalizePipe,
+  ],
   templateUrl: './job-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

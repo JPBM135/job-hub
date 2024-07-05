@@ -128,7 +128,11 @@ export class DashboardService implements BasePaginationService {
         application,
       };
 
-      return [...prevData.slice(0, index), updatedJob, ...prevData.slice(index + 1)] as Jobs[];
+      return [
+        ...prevData.slice(0, index),
+        updatedJob,
+        ...prevData.slice(index + 1),
+      ] as Jobs[];
     });
 
     this.isLoading.set(false);

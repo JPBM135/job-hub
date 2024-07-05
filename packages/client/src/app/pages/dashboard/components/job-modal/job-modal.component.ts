@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,14 +50,30 @@ export class JobModalComponent {
   public jobForm = new FormGroup<JobForm>({
     company: new FormControl(null, [Validators.minLength(3)]),
     datePosted: new FormControl(null),
-    description: new FormControl(null, [Validators.minLength(10), Validators.maxLength(1_024)]),
+    description: new FormControl(null, [
+      Validators.minLength(10),
+      Validators.maxLength(1_024),
+    ]),
     experienceLevel: new FormControl<string>('', [Validators.required]),
-    location: new FormControl(null, [Validators.minLength(3), Validators.maxLength(1_024)]),
-    payMax: new FormControl(null, [Validators.min(0), Validators.pattern(/^[\d,]+$/)]),
-    payMin: new FormControl(null, [Validators.min(0), Validators.pattern(/^[\d,]+$/)]),
+    location: new FormControl(null, [
+      Validators.minLength(3),
+      Validators.maxLength(1_024),
+    ]),
+    payMax: new FormControl(null, [
+      Validators.min(0),
+      Validators.pattern(/^[\d,]+$/),
+    ]),
+    payMin: new FormControl(null, [
+      Validators.min(0),
+      Validators.pattern(/^[\d,]+$/),
+    ]),
     payType: new FormControl(null),
     remoteStatus: new FormControl<string>('', [Validators.required]),
-    title: new FormControl<string>('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+    title: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(255),
+    ]),
     type: new FormControl<string>('', [Validators.required]),
     url: new FormControl<string>('', [
       Validators.required,
@@ -74,7 +95,9 @@ export class JobModalComponent {
     if (this.isEdit) {
       this.jobForm.patchValue({
         company: this.data!.job.company,
-        datePosted: this.data!.job.datePosted ? new Date(this.data!.job.datePosted).toISOString().split('T')[0] : null,
+        datePosted: this.data!.job.datePosted
+          ? new Date(this.data!.job.datePosted).toISOString().split('T')[0]
+          : null,
         description: this.data!.job.description,
         experienceLevel: this.data!.job.experienceLevel,
         location: this.data!.job.location,

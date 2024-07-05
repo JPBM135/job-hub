@@ -1,6 +1,9 @@
 import type { AlertComponentTheme, AlertComponentType } from './alert.type';
 
-export const AlertComponentThemes: Record<AlertComponentType, AlertComponentTheme> = {
+export const AlertComponentThemes: Record<
+  AlertComponentType,
+  AlertComponentTheme
+> = {
   error: {
     icon: 'error_outline',
     color: 'red-600',

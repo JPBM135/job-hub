@@ -18,7 +18,9 @@ import type { BasePaginationService } from './pagination.type.js';
   standalone: true,
   imports: [CommonModule],
 })
-export class PaginationComponent<T extends BasePaginationService> implements AfterViewInit {
+export class PaginationComponent<T extends BasePaginationService>
+  implements AfterViewInit
+{
   @Input({
     required: true,
   })
@@ -30,7 +32,8 @@ export class PaginationComponent<T extends BasePaginationService> implements Aft
 
   public debouncedNextPage = debounce(this.nextPage.bind(this), 200);
 
-  @ViewChild('divInterceptor') public divInterceptor!: ElementRef<HTMLDivElement>;
+  @ViewChild('divInterceptor')
+  public divInterceptor!: ElementRef<HTMLDivElement>;
 
   public ngAfterViewInit(): void {
     this.intersectionObserver = new IntersectionObserver((entries) => {
@@ -49,16 +52,22 @@ export class PaginationComponent<T extends BasePaginationService> implements Aft
   }
 
   public async nextPage(): Promise<void> {
-    this.service.skip.update((skip: number) => skip + Number(this.service.take()));
+    this.service.skip.update(
+      (skip: number) => skip + Number(this.service.take()),
+    );
     this.service.search$.next(true);
   }
 
   public async previousPage(): Promise<void> {
-    this.service.skip.update((skip: number) => skip - Number(this.service.take()));
+    this.service.skip.update(
+      (skip: number) => skip - Number(this.service.take()),
+    );
     this.service.search$.next(true);
   }
 
   private computeNextPage() {
-    return this.service.totalCount() > this.service.skip() + this.service.take();
+    return (
+      this.service.totalCount() > this.service.skip() + this.service.take()
+    );
   }
 }

@@ -8,7 +8,9 @@
         matTooltip="Create a new job posting"
         class="flex justify-between items-center gap-2 bg-blue-600 p-2 rounded-lg text-white hover:bg-blue-700 transition-colors"
       >
-        <mat-icon fontSet="material-symbols-outlined" class="scale-90">add_circle</mat-icon>
+        <mat-icon fontSet="material-symbols-outlined" class="scale-90"
+          >add_circle</mat-icon
+        >
         New Job
       </button>
     </div>
@@ -41,14 +43,20 @@
         </mat-select>
       </mat-form-field>
     </form>
-    <div class="grid grid-flow-dense grid-cols-[repeat(auto-fill,minmax(500px,1fr))] justify-center gap-8 p-3">
+    <div
+      class="grid grid-flow-dense grid-cols-[repeat(auto-fill,minmax(500px,1fr))] justify-center gap-8 p-3"
+    >
       @for (job of dashboardService.dataSource(); track job.id) {
         <app-job-card [job]="job"></app-job-card>
       } @empty {
-        <div class="text-white text-center">No jobs found with current filters</div>
+        <div class="text-white text-center">
+          No jobs found with current filters
+        </div>
       }
     </div>
-    @if (dashboardService.pageInfo() && !dashboardService.pageInfo()?.hasNextPage) {
+    @if (
+      dashboardService.pageInfo() && !dashboardService.pageInfo()?.hasNextPage
+    ) {
       <div class="text-white text-center">No more jobs to show :(</div>
     }
     <app-pagination [service]="dashboardService"></app-pagination>

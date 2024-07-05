@@ -16,7 +16,9 @@ import { UsersApiService } from '../../core/api/users/users-api.service';
 import { AlertService } from '../../core/services/alert/alert.service';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 
-const passwordMatchValidator: ValidatorFn = (control: AbstractControl<unknown>): { mismatch: boolean } | null => {
+const passwordMatchValidator: ValidatorFn = (
+  control: AbstractControl<unknown>,
+): { mismatch: boolean } | null => {
   const passwordForm = control?.parent?.get('password');
 
   if (passwordForm?.value === control?.value) {
@@ -26,12 +28,18 @@ const passwordMatchValidator: ValidatorFn = (control: AbstractControl<unknown>):
   return { mismatch: true };
 };
 
-const conditionalRequiredValidator: ValidatorFn = (control: AbstractControl<unknown>): { required: boolean } | null => {
+const conditionalRequiredValidator: ValidatorFn = (
+  control: AbstractControl<unknown>,
+): { required: boolean } | null => {
   const currentPasswordForm = control?.parent?.get('currentPassword');
   const passwordForm = control?.parent?.get('password');
   const newPasswordForm = control?.parent?.get('newPassword');
 
-  if (currentPasswordForm?.value || passwordForm?.value || newPasswordForm?.value) {
+  if (
+    currentPasswordForm?.value ||
+    passwordForm?.value ||
+    newPasswordForm?.value
+  ) {
     return Validators.required(control) as { required: boolean };
   }
 
@@ -41,12 +49,18 @@ const conditionalRequiredValidator: ValidatorFn = (control: AbstractControl<unkn
 @Component({
   selector: 'app-user-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
   templateUrl: './user-modal.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserModalComponent {
-  private static readonly PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\dA-Za-z]).*$/;
+  private static readonly PASSWORD_REGEX =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\dA-Za-z]).*$/;
 
   public userForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -67,7 +81,11 @@ export class UserModalComponent {
       Validators.maxLength(255),
       passwordMatchValidator,
     ]),
-    name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(255),
+    ]),
   });
 
   public authUser = this.authenticationService.getUser();

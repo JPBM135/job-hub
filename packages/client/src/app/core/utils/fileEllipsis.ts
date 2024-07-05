@@ -8,7 +8,11 @@ export function fileEllipsis(value: string, length: number) {
     return value;
   }
 
-  return [fileName.slice(0, length - LENGTH_THRESHOLD), '...', fileName.slice(-LENGTH_THRESHOLD), '.', extension].join(
-    '',
-  );
+  return [
+    fileName.slice(0, length - LENGTH_THRESHOLD),
+    '...',
+    fileName.slice(-LENGTH_THRESHOLD),
+    '.',
+    extension,
+  ].join('');
 }

@@ -7,7 +7,9 @@ const API_URLS = [environment.apiUrl];
 
 export const authenticationInterceptor: HttpInterceptorFn = (req, next) => {
   let requestInstance = req;
-  const shouldIncludeAuthorizationHeader = API_URLS.some((url) => req.url.startsWith(url));
+  const shouldIncludeAuthorizationHeader = API_URLS.some((url) =>
+    req.url.startsWith(url),
+  );
 
   if (shouldIncludeAuthorizationHeader) {
     const authService = inject(AuthenticationService);

@@ -6,7 +6,9 @@ export function decodeBase64Url(input: string) {
   const pad = replacedInput.length % 4;
   if (pad) {
     if (pad === 1) {
-      throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
+      throw new Error(
+        'InvalidLengthError: Input base64url string is the wrong length to determine padding',
+      );
     }
 
     replacedInput += Array.from({ length: 5 - pad }).join('=');

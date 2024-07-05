@@ -1,4 +1,7 @@
-import type { GraphQLRequestContextDidEncounterErrors, GraphQLRequestContextWillSendResponse } from '@apollo/server';
+import type {
+  GraphQLRequestContextDidEncounterErrors,
+  GraphQLRequestContextWillSendResponse,
+} from '@apollo/server';
 import type { Knex } from 'knex';
 import { describe, it, expect, vitest } from 'vitest';
 import type { AppContext } from '../../@types/index.js';

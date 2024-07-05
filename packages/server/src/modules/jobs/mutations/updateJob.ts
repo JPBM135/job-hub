@@ -34,7 +34,9 @@ interface UpdateJobVariables {
   input: JobUpdateInput;
 }
 
-function toUpdateJobRow(input: JobUpdateInput): SelectiveUpdate<Partial<JobsInput>> {
+function toUpdateJobRow(
+  input: JobUpdateInput,
+): SelectiveUpdate<Partial<JobsInput>> {
   return {
     company: input.company,
     date_posted: input.datePosted ? new Date(input.datePosted) : null,
@@ -53,7 +55,11 @@ function toUpdateJobRow(input: JobUpdateInput): SelectiveUpdate<Partial<JobsInpu
   };
 }
 
-export const UpdateJob: JobHubResolver<Jobs, UpdateJobVariables, true> = async (_, { id, input }, { db }) => {
+export const UpdateJob: JobHubResolver<Jobs, UpdateJobVariables, true> = async (
+  _,
+  { id, input },
+  { db },
+) => {
   const [job] = await db('jobs').select('*').where('id', id);
 
   if (!job) {
@@ -63,10 +69,16 @@ export const UpdateJob: JobHubResolver<Jobs, UpdateJobVariables, true> = async (
   const updateRow = toUpdateJobRow(input);
   const sanitizedUpdate = sanitizeUpdate(updateRow);
 
-  const [updatedJob] = await db('jobs').update(sanitizedUpdate).where('id', id).returning('*');
+  const [updatedJob] = await db('jobs')
+    .update(sanitizedUpdate)
+    .where('id', id)
+    .returning('*');
 
   if (!updatedJob) {
-    throw new JobHubError('Job not updated', JobHubErrorCodes.InternalServerError);
+    throw new JobHubError(
+      'Job not updated',
+      JobHubErrorCodes.InternalServerError,
+    );
   }
 
   return updatedJob;

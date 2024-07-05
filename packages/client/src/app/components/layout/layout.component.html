@@ -15,7 +15,9 @@
     <div class="flex justify-end items-center gap-4">
       <div class="flex gap-4">
         @for (header of headers; track header.label) {
-          <div class="flex items-center gap-2 text-white rounded-lg hover:bg-slate-700 py-2 px-3">
+          <div
+            class="flex items-center gap-2 text-white rounded-lg hover:bg-slate-700 py-2 px-3"
+          >
             <mat-icon
               [ngClass]="{
                 'text-info-icon-default': header.link === '/',
@@ -24,13 +26,21 @@
               class="scale-75"
               >{{ header.icon }}</mat-icon
             >
-            <a [routerLink]="header.link" class="text-base font-medium text-gray-300">{{ header.label }}</a>
+            <a
+              [routerLink]="header.link"
+              class="text-base font-medium text-gray-300"
+              >{{ header.label }}</a
+            >
           </div>
         }
       </div>
       <div class="h-5 w-px bg-new-gray-200"></div>
-      <div class="flex items-center gap-2 rounded-full bg-new-gray-50 px-2 py-1">
-        <span class="text-base font-medium text-gray-300">{{ loggedInUser?.name ?? 'Whattttt?' }}</span>
+      <div
+        class="flex items-center gap-2 rounded-full bg-new-gray-50 px-2 py-1"
+      >
+        <span class="text-base font-medium text-gray-300">{{
+          loggedInUser?.name ?? 'Whattttt?'
+        }}</span>
         <mat-icon
           role="button"
           (click)="toggleMenu($event)"
@@ -41,14 +51,21 @@
           >keyboard_arrow_down</mat-icon
         >
         @if (menuOpen()) {
-          <div class="absolute right-5 top-12 z-50 w-48 rounded-lg bg-slate-800 p-4 shadow-lg" id="header_menu">
+          <div
+            class="absolute right-5 top-12 z-50 w-48 rounded-lg bg-slate-800 p-4 shadow-lg"
+            id="header_menu"
+          >
             <button
               type="button"
               class="flex w-full items-center justify-between py-2 font-medium text-gray-300"
               (click)="openUserMenu()"
             >
               <span>Edit user</span>
-              <mat-icon fontSet="material-symbols-outlined" class="scale-75 text-gray-300">manage_accounts</mat-icon>
+              <mat-icon
+                fontSet="material-symbols-outlined"
+                class="scale-75 text-gray-300"
+                >manage_accounts</mat-icon
+              >
             </button>
             <button
               type="button"

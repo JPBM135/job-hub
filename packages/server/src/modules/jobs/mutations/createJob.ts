@@ -54,13 +54,21 @@ export const CreateJob: JobHubResolver<Jobs, CreateJobVariables, true> = async (
   { db, authenticatedUser },
 ) => {
   if (input.payMax && input.payMin && input.payMax < input.payMin) {
-    throw new JobHubError('Pay max must be greater than pay min', JobHubErrorCodes.JobInvalidPayRange);
+    throw new JobHubError(
+      'Pay max must be greater than pay min',
+      JobHubErrorCodes.JobInvalidPayRange,
+    );
   }
 
-  const [job] = await db('jobs').insert(toJobRow(input, authenticatedUser)).returning('*');
+  const [job] = await db('jobs')
+    .insert(toJobRow(input, authenticatedUser))
+    .returning('*');
 
   if (!job) {
-    throw new JobHubError('Job not created', JobHubErrorCodes.InternalServerError);
+    throw new JobHubError(
+      'Job not created',
+      JobHubErrorCodes.InternalServerError,
+    );
   }
 
   return job;

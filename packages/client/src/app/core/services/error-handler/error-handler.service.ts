@@ -47,17 +47,25 @@ export class ErrorHandlerService {
       return this.resolveReadableErrorMessage('NETWORK', true);
     }
 
-    const message = (error as ApolloError)?.message || error.graphQLErrors?.[0]?.message;
+    const message =
+      (error as ApolloError)?.message || error.graphQLErrors?.[0]?.message;
 
     if (error.graphQLErrors?.length) {
-      const errorCodes = error.graphQLErrors.map((graphQLError) => graphQLError.extensions?.['code']);
-      const readableErrorMessage = this.resolveReadableErrorMessage((errorCodes[0] as string) || 'DEFAULT');
+      const errorCodes = error.graphQLErrors.map(
+        (graphQLError) => graphQLError.extensions?.['code'],
+      );
+      const readableErrorMessage = this.resolveReadableErrorMessage(
+        (errorCodes[0] as string) || 'DEFAULT',
+      );
 
       if (environment.isProduction && !readableErrorMessage) {
         return this.resolveReadableErrorMessage('DEFAULT', true);
       }
 
-      return readableErrorMessage ?? this.computeDefaultErrorMessage(message ?? 'UNKNOWN', errorCodes[0]);
+      return (
+        readableErrorMessage ??
+        this.computeDefaultErrorMessage(message ?? 'UNKNOWN', errorCodes[0])
+      );
     }
 
     return environment.isProduction
@@ -65,15 +73,30 @@ export class ErrorHandlerService {
       : this.computeDefaultErrorMessage(message ?? 'UNKNOWN', 'UNKNOWN');
   }
 
-  private computeDefaultErrorMessage(message: string, errorCode: unknown): string {
-    const parsedCode = typeof errorCode === 'string' ? errorCode : (errorCode as { code: string })?.code;
+  private computeDefaultErrorMessage(
+    message: string,
+    errorCode: unknown,
+  ): string {
+    const parsedCode =
+      typeof errorCode === 'string'
+        ? errorCode
+        : (errorCode as { code: string })?.code;
 
     return `Unknown Error: ${message} (${parsedCode ?? 'UNKNOWN'})`;
   }
 
-  private resolveReadableErrorMessage(errorCode: string, isDefault: true): string;
-  private resolveReadableErrorMessage(errorCode: string, isDefault?: false): string | null;
-  private resolveReadableErrorMessage(errorCode: string, isDefault = false): string | null {
+  private resolveReadableErrorMessage(
+    errorCode: string,
+    isDefault: true,
+  ): string;
+  private resolveReadableErrorMessage(
+    errorCode: string,
+    isDefault?: false,
+  ): string | null;
+  private resolveReadableErrorMessage(
+    errorCode: string,
+    isDefault = false,
+  ): string | null {
     const value = isDefault ? ErrorCodes.DEFAULTS : ErrorCodes.USER_DEFINED;
     return value[errorCode as keyof typeof value] ?? null;
   }

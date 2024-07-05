@@ -15,9 +15,14 @@ export function checkState(state: string): boolean {
   const now = Date.now();
   if (now - data.created > MAX_STATE_AGE) return false;
 
-  const expectedHmac = createHmac('sha512', config.secret.stateHmac).update(encodedData).digest('hex');
+  const expectedHmac = createHmac('sha512', config.secret.stateHmac)
+    .update(encodedData)
+    .digest('hex');
 
   if (hmac.length !== expectedHmac.length) return false;
 
-  return timingSafeEqual(Buffer.from(hmac, 'hex'), Buffer.from(expectedHmac, 'hex'));
+  return timingSafeEqual(
+    Buffer.from(hmac, 'hex'),
+    Buffer.from(expectedHmac, 'hex'),
+  );
 }

@@ -1,7 +1,9 @@
 type AllowedOrderBy = Record<string, string>;
 
 type GeneratePossibleDefaultOrderBy<T extends Record<string, any>> = keyof {
-  [K in keyof T as `${Extract<K, string>}_ASC` | `${Extract<K, string>}_DESC`]: any;
+  [K in keyof T as
+    | `${Extract<K, string>}_ASC`
+    | `${Extract<K, string>}_DESC`]: any;
 };
 
 export function resolveOrderBy<T extends AllowedOrderBy>(
@@ -11,7 +13,8 @@ export function resolveOrderBy<T extends AllowedOrderBy>(
 ): { column: string; order: 'ASC' | 'DESC' } {
   const [column, order] = orderBy.split('_') as [string, 'ASC' | 'DESC'];
 
-  const resolvedOrderBy = allowedOrderBy[column] ?? allowedOrderBy[defaultOrderBy]!;
+  const resolvedOrderBy =
+    allowedOrderBy[column] ?? allowedOrderBy[defaultOrderBy]!;
 
   return {
     column: resolvedOrderBy,

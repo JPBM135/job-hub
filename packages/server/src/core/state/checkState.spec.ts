@@ -29,7 +29,9 @@ describe.skip('checkState', () => {
     const data = { created: Date.now() - MAX_STATE_AGE * 2 };
     const encodedData = Buffer.from(JSON.stringify(data)).toString('base64');
 
-    const hmac = createHmac('sha512', config.secret.stateHmac).update(encodedData).digest('hex');
+    const hmac = createHmac('sha512', config.secret.stateHmac)
+      .update(encodedData)
+      .digest('hex');
     const state = `${encodedData}.${hmac}`;
 
     const result = checkState(state);
@@ -42,7 +44,9 @@ describe.skip('checkState', () => {
     const stringified = JSON.stringify(data);
     const encodedData = Buffer.from(stringified).toString('base64');
 
-    const hmac = createHmac('sha512', config.secret.stateHmac).update(encodedData).digest('hex');
+    const hmac = createHmac('sha512', config.secret.stateHmac)
+      .update(encodedData)
+      .digest('hex');
     const state = `${encodedData}.${hmac}`;
 
     const result = checkState(state);

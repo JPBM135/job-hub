@@ -5,12 +5,15 @@ import { unauthenticationGuard } from './core/guards/unauthenticated.guard';
 export const routes: Routes = [
   {
     path: 'login',
-    loadComponent: async () => (await import('./pages/login/login.component')).LoginComponent,
+    loadComponent: async () =>
+      (await import('./pages/login/login.component')).LoginComponent,
     canActivate: [unauthenticationGuard],
   },
   {
     path: 'dashboard',
-    loadComponent: async () => (await import('./pages/dashboard/dashboard.component')).DashboardComponent,
+    loadComponent: async () =>
+      (await import('./pages/dashboard/dashboard.component'))
+        .DashboardComponent,
     canActivate: [authenticationGuard],
   },
   {

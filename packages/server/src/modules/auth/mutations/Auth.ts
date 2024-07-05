@@ -36,13 +36,19 @@ export const Auth: JobHubResolver<AuthResponse, AuthInput> = async (
   const user = await db.select('*').from('users').where('email', email).first();
 
   if (!user) {
-    throw new JobHubError('Invalid email or password', JobHubErrorCodes.InvalidEmailOrPassword);
+    throw new JobHubError(
+      'Invalid email or password',
+      JobHubErrorCodes.InvalidEmailOrPassword,
+    );
   }
 
   const validPassword = await bcrypt.compare(password, user.password);
 
   if (!validPassword) {
-    throw new JobHubError('Invalid email or password', JobHubErrorCodes.InvalidEmailOrPassword);
+    throw new JobHubError(
+      'Invalid email or password',
+      JobHubErrorCodes.InvalidEmailOrPassword,
+    );
   }
 
   return handleTokenGeneration(user);

@@ -30,7 +30,11 @@ describe('generateAuthToken', () => {
 
   it('should generate a state string with a valid hmac', () => {
     const state = generateAuthToken(user);
-    const [encodedData, encodedUser, hmac] = state.split('.') as [string, string, string];
+    const [encodedData, encodedUser, hmac] = state.split('.') as [
+      string,
+      string,
+      string,
+    ];
 
     const expectedHmac = createHmac('sha512', config.secret.loginHmac)
       .update(encodedData + '.' + encodedUser)
@@ -42,8 +46,12 @@ describe('generateAuthToken', () => {
   it('should generate a state string with a created timestamp', () => {
     const state = generateAuthToken(user);
     const [encodedData, encodedUser] = state.split('.') as [string, string];
-    const data = JSON.parse(Buffer.from(encodedData, 'base64url').toString('utf8'));
-    const decodedUser = JSON.parse(Buffer.from(encodedUser, 'base64url').toString('utf8')) as Users;
+    const data = JSON.parse(
+      Buffer.from(encodedData, 'base64url').toString('utf8'),
+    );
+    const decodedUser = JSON.parse(
+      Buffer.from(encodedUser, 'base64url').toString('utf8'),
+    ) as Users;
 
     expect(data.created).toBeDefined();
     expect(typeof data.created).toBe('number');

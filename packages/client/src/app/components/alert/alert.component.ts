@@ -30,7 +30,8 @@ dayjs.extend(relativeTime);
 export class AlertComponent implements OnInit, OnDestroy {
   public themes = AlertComponentThemes;
 
-  public timeouts: { id: string; timeout: ReturnType<typeof setTimeout> }[] = [];
+  public timeouts: { id: string; timeout: ReturnType<typeof setTimeout> }[] =
+    [];
 
   public alerts = signal<AlertCard[]>([]);
 
@@ -43,25 +44,31 @@ export class AlertComponent implements OnInit, OnDestroy {
   public constructor(private readonly alertService: AlertService) {}
 
   public ngOnInit(): void {
-    this.alertService.alertEmitter$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((data) => {
-      const alreadyExistingAlert = this.alerts().find((alert) => alert.id() === data.id);
+    this.alertService.alertEmitter$
+      .pipe(takeUntil(this.unsubscribeAll$))
+      .subscribe((data) => {
+        const alreadyExistingAlert = this.alerts().find(
+          (alert) => alert.id() === data.id,
+        );
 
-      if (alreadyExistingAlert) {
-        this.updateHandler(alreadyExistingAlert, data);
-        return;
-      }
+        if (alreadyExistingAlert) {
+          this.updateHandler(alreadyExistingAlert, data);
+          return;
+        }
 
-      this.showHandler(data as AlertCardInfo);
-    });
+        this.showHandler(data as AlertCardInfo);
+      });
 
-    this.alertService.closeEmitter$.pipe(takeUntil(this.unsubscribeAll$)).subscribe((id) => {
-      const alert = this.alerts().find((alert) => alert.id() === id);
-      if (!alert) {
-        return;
-      }
+    this.alertService.closeEmitter$
+      .pipe(takeUntil(this.unsubscribeAll$))
+      .subscribe((id) => {
+        const alert = this.alerts().find((alert) => alert.id() === id);
+        if (!alert) {
+          return;
+        }
 
-      this.removeHandler(alert);
-    });
+        this.removeHandler(alert);
+      });
   }
 
   public ngOnDestroy(): void {
@@ -69,7 +76,13 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.unsubscribeAll$.complete();
   }
 
-  private showHandler({ id, message, theme = 'info', timeout = 5_000, progress = null }: AlertCardInfo): void {
+  private showHandler({
+    id,
+    message,
+    theme = 'info',
+    timeout = 5_000,
+    progress = null,
+  }: AlertCardInfo): void {
     const alert = {
       id: signal(id),
       message: signal(message),
@@ -89,7 +102,10 @@ export class AlertComponent implements OnInit, OnDestroy {
     }
 
     if (timeout) {
-      this.timeouts.push({ id, timeout: setTimeout(() => this.removeHandler(alert), timeout) });
+      this.timeouts.push({
+        id,
+        timeout: setTimeout(() => this.removeHandler(alert), timeout),
+      });
     }
   }
 
@@ -106,7 +122,9 @@ export class AlertComponent implements OnInit, OnDestroy {
     }
 
     if (timeout) {
-      const oldTimeout = this.timeouts.find((timeout) => timeout.id === card.id());
+      const oldTimeout = this.timeouts.find(
+        (timeout) => timeout.id === card.id(),
+      );
       clearTimeout(oldTimeout?.timeout);
       card.timeout.set(timeout);
       this.timeouts.push({
@@ -140,7 +158,10 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   public removeHandler(alert: AlertCard): void {
-    if (alert.animationState() === 'enter' || alert.animationState() === 'stable') {
+    if (
+      alert.animationState() === 'enter' ||
+      alert.animationState() === 'stable'
+    ) {
       alert.animationState.set('leave');
       return;
     }

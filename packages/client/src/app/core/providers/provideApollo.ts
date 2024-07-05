@@ -10,7 +10,10 @@ export function provideApollo() {
   return [
     {
       provide: APOLLO_OPTIONS,
-      useFactory(httpLink: HttpLink, errorHandlerService: ErrorHandlerService): ApolloClientOptions<any> {
+      useFactory(
+        httpLink: HttpLink,
+        errorHandlerService: ErrorHandlerService,
+      ): ApolloClientOptions<any> {
         const http = httpLink.create({
           uri: environment.apiUrl,
         });

@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  signal,
+} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { firstValueFrom } from 'rxjs';
@@ -27,7 +32,9 @@ export class JobApplicantsModalComponent {
   }
 
   public async loadJobApplicants(): Promise<void> {
-    const jobApplicants = await firstValueFrom(this.jobsApiService.getJobApplicants(this.job.id));
+    const jobApplicants = await firstValueFrom(
+      this.jobsApiService.getJobApplicants(this.job.id),
+    );
 
     this.jobApplicants.set(jobApplicants);
   }

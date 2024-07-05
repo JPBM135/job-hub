@@ -21,7 +21,9 @@ type Env = EnvHelper<{
   SENTRY_DSN: string | null;
 }>;
 
-const env = JSON.parse(fs.readFileSync(new URL('../env.json', import.meta.url), 'utf8')) as Env;
+const env = JSON.parse(
+  fs.readFileSync(new URL('../env.json', import.meta.url), 'utf8'),
+) as Env;
 
 const { ENVIRONMENT } = process.env as {
   ENVIRONMENT?: 'dev' | 'prod';
@@ -29,7 +31,10 @@ const { ENVIRONMENT } = process.env as {
 
 if (ENVIRONMENT === 'prod') {
   for (const key of Object.keys(env.dev)) {
-    if (process.env[key] === undefined && env.prod[key as keyof Env['prod']] === undefined) {
+    if (
+      process.env[key] === undefined &&
+      env.prod[key as keyof Env['prod']] === undefined
+    ) {
       throw new Error(`Missing environment variable: ${key}`);
     }
 

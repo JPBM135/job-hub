@@ -22,7 +22,15 @@ export class AuthApiService {
       .pipe(map((response) => response.data.GetNonce));
   }
 
-  public login({ email, password, nonce }: { email: string; nonce: string; password: string }) {
+  public login({
+    email,
+    password,
+    nonce,
+  }: {
+    email: string;
+    nonce: string;
+    password: string;
+  }) {
     return this.apollo
       .mutate<AuthMutationResponse>({
         mutation: AUTH_MUTATION,

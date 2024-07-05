@@ -41,13 +41,24 @@ async function applyWhere<T extends Knex.QueryBuilder<any, any>>(
   }
 }
 
-async function applyJoin<T extends Knex.QueryBuilder<any, any>>(query: T, where: JobsQueryVariables['where']) {
+async function applyJoin<T extends Knex.QueryBuilder<any, any>>(
+  query: T,
+  where: JobsQueryVariables['where'],
+) {
   if (where?.applicationStatus) {
-    void query.leftJoin('jobs_applications', 'jobs_applications.job_id', 'jobs.id');
+    void query.leftJoin(
+      'jobs_applications',
+      'jobs_applications.job_id',
+      'jobs.id',
+    );
   }
 }
 
-export const Jobs: JobHubResolver<PaginatedResponse<DbJobs>, JobsQueryVariables, true> = async (
+export const Jobs: JobHubResolver<
+  PaginatedResponse<DbJobs>,
+  JobsQueryVariables,
+  true
+> = async (
   _,
   { limit = 10, offset = 0, orderBy = 'createdAt_DESC', where = {} },
   { db, authenticatedUser },

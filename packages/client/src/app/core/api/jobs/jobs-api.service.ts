@@ -28,7 +28,11 @@ export class JobsApiService {
     limit?: number;
     offset?: number;
     orderBy?: string;
-    where?: { applicationStatus?: string; archived?: boolean; nameContains?: string };
+    where?: {
+      applicationStatus?: string;
+      archived?: boolean;
+      nameContains?: string;
+    };
   }) {
     return this.apollo
       .query<GetJobsQueryResult>({

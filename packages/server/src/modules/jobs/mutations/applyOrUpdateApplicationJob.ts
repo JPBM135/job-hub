@@ -1,4 +1,7 @@
-import type { JobsApplications, job_application_status } from '../../../@types/db.schema.js';
+import type {
+  JobsApplications,
+  job_application_status,
+} from '../../../@types/db.schema.js';
 import { JobHubError } from '../../../core/error/JobHubError.js';
 import { JobHubErrorCodes } from '../../../core/error/codes.js';
 import type { JobHubResolver } from '../../interfaces.js';
@@ -10,11 +13,11 @@ interface JobApplicationInput {
   };
 }
 
-export const ApplyOrUpdateApplicationJob: JobHubResolver<JobsApplications, JobApplicationInput, true> = async (
-  _,
-  { input: { jobId, status } },
-  { db, authenticatedUser },
-) => {
+export const ApplyOrUpdateApplicationJob: JobHubResolver<
+  JobsApplications,
+  JobApplicationInput,
+  true
+> = async (_, { input: { jobId, status } }, { db, authenticatedUser }) => {
   const [job] = await db('jobs').select('id').where('id', jobId);
 
   if (!job) {
@@ -34,7 +37,10 @@ export const ApplyOrUpdateApplicationJob: JobHubResolver<JobsApplications, JobAp
       .returning('*');
 
     if (!updatedJobApplication) {
-      throw new JobHubError('Job application not updated', JobHubErrorCodes.InternalServerError);
+      throw new JobHubError(
+        'Job application not updated',
+        JobHubErrorCodes.InternalServerError,
+      );
     }
 
     return updatedJobApplication;
@@ -51,7 +57,10 @@ export const ApplyOrUpdateApplicationJob: JobHubResolver<JobsApplications, JobAp
     .returning('*');
 
   if (!newJobApplication) {
-    throw new JobHubError('Job application not created', JobHubErrorCodes.InternalServerError);
+    throw new JobHubError(
+      'Job application not created',
+      JobHubErrorCodes.InternalServerError,
+    );
   }
 
   return newJobApplication;

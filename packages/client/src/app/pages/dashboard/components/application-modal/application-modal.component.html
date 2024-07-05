@@ -1,4 +1,6 @@
-<div class="flex flex-col gap-4 bg-slate-900 w-96 h-72 text-white p-8 rounded-sm">
+<div
+  class="flex flex-col gap-4 bg-slate-900 w-96 h-72 text-white p-8 rounded-sm"
+>
   <div class="flex flex-col gap-2">
     <h2 class="text-lg truncate">{{ job.title }}</h2>
     <h3 class="text-sm text-gray-500">{{ job.company || 'N/A' }}</h3>
@@ -7,7 +9,10 @@
 
   <div class="flex flex-col gap-2">
     <label>Status:</label>
-    <select [formControl]="statusForm" class="p-2 rounded-lg bg-slate-600 w-full h-10">
+    <select
+      [formControl]="statusForm"
+      class="p-2 rounded-lg bg-slate-600 w-full h-10"
+    >
       <option [value]="null" disabled>Not Applied</option>
       <option value="applied">Applied</option>
       <option value="interviewing">Interviewing</option>

@@ -2,7 +2,12 @@ import { gql } from 'graphql-tag';
 
 export const schema = gql`
   type Query {
-    Jobs(where: JobWhereInput, orderBy: JobOrderByInput, limit: Int, offset: Int): PaginatedJobs! @requireAuth
+    Jobs(
+      where: JobWhereInput
+      orderBy: JobOrderByInput
+      limit: Int
+      offset: Int
+    ): PaginatedJobs! @requireAuth
     Job(id: ID!): Job! @requireAuth
     JobApplications(jobId: String!): [JobApplication!]! @requireAuth
   }
@@ -12,7 +17,8 @@ export const schema = gql`
     UpdateJob(id: ID!, input: JobUpdateInput!): Job! @requireAuth
     ArchiveOrUnarchiveJob(id: ID!): Job! @requireAuth
     DeleteJob(id: ID!): Boolean! @requireAuth
-    ApplyOrUpdateApplicationJob(input: JobApplicationInput!): JobApplication! @requireAuth
+    ApplyOrUpdateApplicationJob(input: JobApplicationInput!): JobApplication!
+      @requireAuth
   }
 
   # Types

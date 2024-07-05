@@ -15,7 +15,10 @@ function resolveIp(req: ExpressContextFunctionArgument['req']) {
   return req.socket?.remoteAddress ?? req.ip;
 }
 
-export async function createContext({ req, res }: ExpressContextFunctionArgument): Promise<AppContext> {
+export async function createContext({
+  req,
+  res,
+}: ExpressContextFunctionArgument): Promise<AppContext> {
   try {
     const { db } = await createDatabase();
     const transaction = Sentry.startTransaction({
@@ -24,7 +27,9 @@ export async function createContext({ req, res }: ExpressContextFunctionArgument
     });
     const authorization = req.header('authorization');
     console.log('authorization', authorization);
-    const tokenResult = authorization ? verifyAuthToken<Users>(authorization) : null;
+    const tokenResult = authorization
+      ? verifyAuthToken<Users>(authorization)
+      : null;
 
     const ip = resolveIp(req);
 

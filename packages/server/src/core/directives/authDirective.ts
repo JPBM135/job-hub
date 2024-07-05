@@ -16,7 +16,10 @@ export function RequireAuthDirective(schema: GraphQLSchema): GraphQLSchema {
       fieldConfig.resolve = async function (...args) {
         const context = args[2];
         if (!context.authenticatedUser) {
-          throw new JobHubError('You must be authenticated to access this resource', JobHubErrorCodes.Unauthorized);
+          throw new JobHubError(
+            'You must be authenticated to access this resource',
+            JobHubErrorCodes.Unauthorized,
+          );
         }
 
         return defaultFieldResolver?.apply(this, args);

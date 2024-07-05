@@ -1,4 +1,6 @@
-<div class="flex flex-col gap-4 bg-slate-900 w-[400px] max-h-[700px] text-white p-8 rounded-sm">
+<div
+  class="flex flex-col gap-4 bg-slate-900 w-[400px] max-h-[700px] text-white p-8 rounded-sm"
+>
   <div class="flex flex-col gap-2">
     <h2 class="text-lg font-semibold">{{ job.title }}</h2>
     <h3 class="text-sm text-gray-500">{{ job.company || 'N/A' }}</h3>
@@ -17,11 +19,17 @@
           <div>
             <div
               [ngClass]="{
-                'border-green-600 text-green-600': job.application?.status === 'hired',
-                'border-red-600 text-red-600': job.application?.status === 'rejected',
-                'border-yellow-600 text-yellow-600': job.application?.status === 'offered',
-                'border-blue-600 text-blue-600': job.application?.status === 'interviewing',
-                'border-gray-600 text-gray-600': job.application?.status === 'applied' || !job.application?.status
+                'border-green-600 text-green-600':
+                  job.application?.status === 'hired',
+                'border-red-600 text-red-600':
+                  job.application?.status === 'rejected',
+                'border-yellow-600 text-yellow-600':
+                  job.application?.status === 'offered',
+                'border-blue-600 text-blue-600':
+                  job.application?.status === 'interviewing',
+                'border-gray-600 text-gray-600':
+                  job.application?.status === 'applied' ||
+                  !job.application?.status
               }"
               class="flex items-center justify-end gap-2 py-1 px-2 rounded-lg border text-xs"
             >

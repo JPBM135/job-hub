@@ -2,7 +2,8 @@ import type { NOT_MODIFIED_SIGNAL } from '../constants.js';
 
 export type TypedOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export type If<TCondition, TExpected, TTrue, TFalse> = TCondition extends TExpected ? TTrue : TFalse;
+export type If<TCondition, TExpected, TTrue, TFalse> =
+  TCondition extends TExpected ? TTrue : TFalse;
 
 type CamelCase<TString extends string> =
   TString extends `${infer BeforeUndescore}_${infer AfterUnderscore}${infer RemainingString}`

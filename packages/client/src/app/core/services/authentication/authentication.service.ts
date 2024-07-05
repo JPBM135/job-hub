@@ -13,7 +13,9 @@ export class AuthenticationService {
   public constructor(private readonly router: Router) {}
 
   public getLocalStoredUser(): { token: string; user: User } | null {
-    const localStorageValue = localStorage.getItem(AuthenticationService.LOCAL_STORAGE_KEY);
+    const localStorageValue = localStorage.getItem(
+      AuthenticationService.LOCAL_STORAGE_KEY,
+    );
 
     if (!localStorageValue) {
       return null;
@@ -78,7 +80,10 @@ export class AuthenticationService {
   }
 
   public setUser(token: string, user: User): void {
-    localStorage.setItem(AuthenticationService.LOCAL_STORAGE_KEY, JSON.stringify({ token, user }));
+    localStorage.setItem(
+      AuthenticationService.LOCAL_STORAGE_KEY,
+      JSON.stringify({ token, user }),
+    );
   }
 
   public removeUser(): void {

@@ -10,7 +10,7 @@
     "build": "yarn build-clean && yarn build-check && yarn build-esm",
     "bundle": "swc src --out-dir ./dist --bundle",
     "generate-database-types": "npx pg-to-ts generate -c postgresql://postgres:test@127.0.0.1:5432/jobhub -o src/@types/db.schema.ts",
-    "lint-fix": "DEBUG=eslint:cli-engine eslint src --ext ts --fix && prettier --write src",
+    "lint-fix": "DEBUG=eslint:cli-engine eslint src --ext ts --fix && prettier --write src --ignore-path ../../.prettierignore",
     "lint": "DEBUG=eslint:cli-engine eslint src --ext ts && prettier --check src --ignore-path ../../.prettierignore",
     "migration-create": "sh bin/migration-create.sh",
     "migration-run": "knex migrate:latest --knexfile knexfile.js",

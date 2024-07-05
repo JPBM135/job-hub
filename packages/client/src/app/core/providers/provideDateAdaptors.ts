@@ -1,4 +1,8 @@
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 export function provideDateAdaptors() {

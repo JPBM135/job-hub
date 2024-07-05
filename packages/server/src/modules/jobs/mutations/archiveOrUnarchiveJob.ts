@@ -3,7 +3,11 @@ import { JobHubError } from '../../../core/error/JobHubError.js';
 import { JobHubErrorCodes } from '../../../core/error/codes.js';
 import type { JobHubResolver } from '../../interfaces.js';
 
-export const ArchiveOrUnarchiveJob: JobHubResolver<Jobs, { id: string }, true> = async (_, { id }, { db }) => {
+export const ArchiveOrUnarchiveJob: JobHubResolver<
+  Jobs,
+  { id: string },
+  true
+> = async (_, { id }, { db }) => {
   const [job] = await db('jobs').select('*').where('id', id);
 
   if (!job) {
@@ -19,7 +23,10 @@ export const ArchiveOrUnarchiveJob: JobHubResolver<Jobs, { id: string }, true> =
     .returning('*');
 
   if (!updatedJob) {
-    throw new JobHubError('Job not updated', JobHubErrorCodes.InternalServerError);
+    throw new JobHubError(
+      'Job not updated',
+      JobHubErrorCodes.InternalServerError,
+    );
   }
 
   return updatedJob;

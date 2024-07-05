@@ -3,7 +3,12 @@ import type { Jobs, JobsApplications } from '../../../@types/Jobs';
 import type { Paginated } from '../../../@types/utils';
 
 export const GET_JOBS_QUERY = gql`
-  query Jobs($where: JobWhereInput, $orderBy: JobOrderByInput, $limit: Int, $offset: Int) {
+  query Jobs(
+    $where: JobWhereInput
+    $orderBy: JobOrderByInput
+    $limit: Int
+    $offset: Int
+  ) {
     Jobs(where: $where, orderBy: $orderBy, limit: $limit, offset: $offset) {
       data {
         id

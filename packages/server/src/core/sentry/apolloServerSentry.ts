@@ -1,11 +1,17 @@
-import type { ApolloServerPlugin, GraphQLRequestListener } from '@apollo/server';
+import type {
+  ApolloServerPlugin,
+  GraphQLRequestListener,
+} from '@apollo/server';
 import type { PolymorphicRequest } from '@sentry/node';
 import type { AppContext } from '../../@types/index.js';
 import { Sentry } from './sentry.js';
 
 export default function ApolloServerSentryPlugin(): ApolloServerPlugin<AppContext> {
   return {
-    async requestDidStart({ request, contextValue }): Promise<GraphQLRequestListener<AppContext>> {
+    async requestDidStart({
+      request,
+      contextValue,
+    }): Promise<GraphQLRequestListener<AppContext>> {
       if (request.operationName) {
         contextValue.transaction.setName(request.operationName);
       }
@@ -27,9 +33,19 @@ export default function ApolloServerSentryPlugin(): ApolloServerPlugin<AppContex
             },
           };
         },
-        async didEncounterErrors({ request, operation, operationName, errors }) {
+        async didEncounterErrors({
+          request,
+          operation,
+          operationName,
+          errors,
+        }) {
           Sentry.withScope((scope) => {
-            scope.addEventProcessor((event) => Sentry.addRequestDataToEvent(event, request as PolymorphicRequest));
+            scope.addEventProcessor((event) =>
+              Sentry.addRequestDataToEvent(
+                event,
+                request as PolymorphicRequest,
+              ),
+            );
 
             scope.setTags({
               graphql: operation?.operation ?? 'parse_err',
@@ -44,7 +60,10 @@ export default function ApolloServerSentryPlugin(): ApolloServerPlugin<AppContex
             for (const error of errors) {
               scope.setTag('kind', operation?.operation ?? 'unnamed operation');
               scope.setExtra('query', request.query);
-              scope.setExtra('variables', JSON.stringify(request.variables, null, 2));
+              scope.setExtra(
+                'variables',
+                JSON.stringify(request.variables, null, 2),
+              );
               scope.setExtra('errorMessage', error.message);
               scope.setExtra('errorCode', error.extensions?.code);
               scope.setExtra('errorStack', error.stack);

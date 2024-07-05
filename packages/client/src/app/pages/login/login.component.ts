@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
@@ -12,7 +17,12 @@ import { AuthenticationService } from '../../core/services/authentication/authen
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -53,9 +63,15 @@ export class LoginComponent {
       return;
     }
 
-    const { email, password, nonce } = this.loginForm.value as { email: string; nonce: string; password: string };
+    const { email, password, nonce } = this.loginForm.value as {
+      email: string;
+      nonce: string;
+      password: string;
+    };
 
-    const login = await firstValueFrom(this.authApiService.login({ email, password, nonce }));
+    const login = await firstValueFrom(
+      this.authApiService.login({ email, password, nonce }),
+    );
 
     if (!login) {
       return;
@@ -64,6 +80,8 @@ export class LoginComponent {
     this.authenticationService.setUser(login.token, login.user);
     void this.router.navigate(['/dashboard']);
 
-    this.alertService.showSuccess(`Logged in successfully, welcome ${login.user.name}`);
+    this.alertService.showSuccess(
+      `Logged in successfully, welcome ${login.user.name}`,
+    );
   }
 }

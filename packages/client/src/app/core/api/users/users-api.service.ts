@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs';
-import { UPDATE_ME_MUTATION, type UpdateMeInput, type UpdateMeResponse } from './users-api.graphql';
+import {
+  UPDATE_ME_MUTATION,
+  type UpdateMeInput,
+  type UpdateMeResponse,
+} from './users-api.graphql';
 
 @Injectable({
   providedIn: 'root',

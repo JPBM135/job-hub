@@ -29,7 +29,9 @@ export async function createDatabase(): Promise<{ db: Knex }> {
   };
 }
 
-export async function createPostgresDatabase(): Promise<ReturnType<(typeof knex)['knex']>> {
+export async function createPostgresDatabase(): Promise<
+  ReturnType<(typeof knex)['knex']>
+> {
   const knexConfig: Knex.Config = {
     client: 'postgresql',
     connection: {

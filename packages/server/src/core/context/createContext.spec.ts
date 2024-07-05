@@ -46,7 +46,10 @@ describe('createContext', () => {
     } as unknown as ExpressContextFunctionArgument['req'];
     const res = {} as unknown as ExpressContextFunctionArgument['res'];
 
-    const context = await createContext({ req, res } as unknown as ExpressContextFunctionArgument);
+    const context = await createContext({
+      req,
+      res,
+    } as unknown as ExpressContextFunctionArgument);
 
     expect(context).toMatchObject<AppContext>({
       authenticatedUser: null,
@@ -75,7 +78,10 @@ describe('createContext', () => {
     } as unknown as ExpressContextFunctionArgument['req'];
     const res = {} as unknown as ExpressContextFunctionArgument['res'];
 
-    const context = await createContext({ req, res } as unknown as ExpressContextFunctionArgument);
+    const context = await createContext({
+      req,
+      res,
+    } as unknown as ExpressContextFunctionArgument);
 
     expect(context).toMatchObject<AppContext>({
       authenticatedUser: {
