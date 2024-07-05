@@ -35,26 +35,10 @@
         class="flex justify-between gap-4 p-2 rounded-lg"
       >
         <mat-icon class="scale-90 text-white">
-          @switch (job.application?.status) {
-            @case ('hired') {
-              done
-            }
-            @case ('rejected') {
-              close
-            }
-            @case ('offered') {
-              pending_actions
-            }
-            @case ('interviewing') {
-              pending
-            }
-            @case ('applied') {
-              hourglass_empty
-            }
-            @default {
-              note_add
-            }
-          }
+          @switch (job.application?.status) { @case ('hired') { done } @case
+          ('rejected') { close } @case ('offered') { pending_actions } @case
+          ('interviewing') { pending } @case ('applied') { hourglass_empty }
+          @default { note_add } }
         </mat-icon>
       </button>
       <button
@@ -84,12 +68,9 @@
     <div class="flex justify-between">
       <span class="font-semibold text-gray-300">Pay Range:</span>
       {{ job.payMin | currency }}
-      @if (job.payMax && job.payMin && job.payMax !== job.payMin) {
-        -
-      }
-      @if (job.payMax && job.payMax !== job.payMin) {
-        {{ job.payMax | currency }} ({{ job.payType }})
-      }
+      @if (job.payMax && job.payMin && job.payMax !== job.payMin) { - } @if
+      (job.payMax && job.payMax !== job.payMin) {
+      {{ job.payMax | currency }} ({{ job.payType }}) }
     </div>
     <div class="flex justify-between">
       <span class="font-semibold text-gray-300"> Remote Status:</span>
@@ -123,15 +104,15 @@
   </div>
   <div class="flex justify-between text-xs text-gray-500">
     @if (job.datePosted) {
-      <span>Posted: {{ job.datePosted | date: 'mediumDate' }}</span>
+    <span>Posted: {{ job.datePosted | date : 'mediumDate' }}</span>
     }
     <div>
       Created At:
-      <span class="font-semibold">{{ job.createdAt | date: 'short' }}</span>
+      <span class="font-semibold">{{ job.createdAt | date : 'short' }}</span>
     </div>
     <div>
       Updated At:
-      <span class="font-semibold">{{ job.updatedAt | date: 'short' }}</span>
+      <span class="font-semibold">{{ job.updatedAt | date : 'short' }}</span>
     </div>
   </div>
 </div>

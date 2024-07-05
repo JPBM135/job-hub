@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { Jobs } from '../../../../@types/Jobs';
 import { TooltipWhenTruncatedDirective } from '../../../../core/directives/tooltipWhenTruncated/tooltip-when-truncated.directive';
 import { CapitalizePipe } from '../../../../core/pipes/capitalize.pipe';

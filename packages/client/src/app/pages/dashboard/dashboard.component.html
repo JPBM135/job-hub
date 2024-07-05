@@ -47,17 +47,16 @@
       class="grid grid-flow-dense grid-cols-[repeat(auto-fill,minmax(500px,1fr))] justify-center gap-8 p-3"
     >
       @for (job of dashboardService.dataSource(); track job.id) {
-        <app-job-card [job]="job"></app-job-card>
+      <app-job-card [job]="job"></app-job-card>
       } @empty {
-        <div class="text-white text-center">
-          No jobs found with current filters
-        </div>
+      <div class="text-white text-center">
+        No jobs found with current filters
+      </div>
       }
     </div>
-    @if (
-      dashboardService.pageInfo() && !dashboardService.pageInfo()?.hasNextPage
-    ) {
-      <div class="text-white text-center">No more jobs to show :(</div>
+    @if ( dashboardService.pageInfo() &&
+    !dashboardService.pageInfo()?.hasNextPage ) {
+    <div class="text-white text-center">No more jobs to show :(</div>
     }
     <app-pagination [service]="dashboardService"></app-pagination>
   </div>

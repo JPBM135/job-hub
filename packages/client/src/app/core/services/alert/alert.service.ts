@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import type { AlertComponentType } from '../../../components/alert/alert.type';
 import { fileEllipsis } from '../../utils/fileEllipsis';
 import { generateRandomId } from '../../utils/generateRandomId';

@@ -14,12 +14,9 @@
         [formControl]="getControl('name')"
       />
       @if (hasError('name', 'required')) {
-        <mat-error class="text-red-600">Name is required</mat-error>
-      }
-      @if (hasError('name', 'minlength') || hasError('name', 'maxlength')) {
-        <mat-error class="text-red-600"
-          >Name must be between 3 and 255</mat-error
-        >
+      <mat-error class="text-red-600">Name is required</mat-error>
+      } @if (hasError('name', 'minlength') || hasError('name', 'maxlength')) {
+      <mat-error class="text-red-600">Name must be between 3 and 255</mat-error>
       }
     </mat-form-field>
     <mat-form-field appearance="outline" floatLabel="always">
@@ -32,10 +29,9 @@
         [formControl]="getControl('email')"
       />
       @if (hasError('email', 'required')) {
-        <mat-error class="text-red-600">Email is required</mat-error>
-      }
-      @if (hasError('email', 'email')) {
-        <mat-error class="text-red-600">Email must be a valid email</mat-error>
+      <mat-error class="text-red-600">Email is required</mat-error>
+      } @if (hasError('email', 'email')) {
+      <mat-error class="text-red-600">Email must be a valid email</mat-error>
       }
     </mat-form-field>
     <div class="bg-gray-600 h-px w-full mb-4"></div>
@@ -49,15 +45,12 @@
         [formControl]="getControl('currentPassword')"
       />
       @if (hasError('currentPassword', 'required')) {
-        <mat-error class="text-red-600">Current password is required</mat-error>
-      }
-      @if (
-        hasError('currentPassword', 'minlength') ||
-        hasError('currentPassword', 'maxlength')
-      ) {
-        <mat-error class="text-red-600"
-          >Current password must be between 8 and 255</mat-error
-        >
+      <mat-error class="text-red-600">Current password is required</mat-error>
+      } @if ( hasError('currentPassword', 'minlength') ||
+      hasError('currentPassword', 'maxlength') ) {
+      <mat-error class="text-red-600"
+        >Current password must be between 8 and 255</mat-error
+      >
       }
     </mat-form-field>
     <mat-form-field appearance="outline" floatLabel="always">
@@ -69,19 +62,16 @@
         [formControl]="getControl('password')"
       />
       @if (hasError('password', 'required')) {
-        <mat-error class="text-red-600">New password is required</mat-error>
-      }
-
-      @if (
-        hasError('password', 'minlength') || hasError('password', 'maxlength')
-      ) {
-        <mat-error class="text-red-600"
-          >New password must be between 8 and 255</mat-error
-        >
+      <mat-error class="text-red-600">New password is required</mat-error>
+      } @if ( hasError('password', 'minlength') || hasError('password',
+      'maxlength') ) {
+      <mat-error class="text-red-600"
+        >New password must be between 8 and 255</mat-error
+      >
       } @else if (hasError('password', 'pattern')) {
-        <mat-error class="text-red-600">
-          Must contain: Upper, lower, digit, special
-        </mat-error>
+      <mat-error class="text-red-600">
+        Must contain: Upper, lower, digit, special
+      </mat-error>
       }
     </mat-form-field>
     <mat-form-field appearance="outline" floatLabel="always">
@@ -93,10 +83,9 @@
         [formControl]="getControl('passwordConfirmation')"
       />
       @if (hasError('passwordConfirmation', 'required')) {
-        <mat-error class="text-red-600">Confirm password is required</mat-error>
-      }
-      @if (hasError('passwordConfirmation', 'mismatch')) {
-        <mat-error class="text-red-600">Passwords must match</mat-error>
+      <mat-error class="text-red-600">Confirm password is required</mat-error>
+      } @if (hasError('passwordConfirmation', 'mismatch')) {
+      <mat-error class="text-red-600">Passwords must match</mat-error>
       }
     </mat-form-field>
   </form>

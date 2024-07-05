@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
-  AbstractControl,
+  type AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,

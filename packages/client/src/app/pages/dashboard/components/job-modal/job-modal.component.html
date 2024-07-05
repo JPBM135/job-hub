@@ -3,9 +3,9 @@
 >
   <div class="flex flex-col gap-2">
     @if (isEdit) {
-      <h2 class="text-lg font-semibold">Edit Job ({{ data?.job?.title }})</h2>
+    <h2 class="text-lg font-semibold">Edit Job ({{ data?.job?.title }})</h2>
     } @else {
-      <h2 class="text-lg font-semibold">Create Job</h2>
+    <h2 class="text-lg font-semibold">Create Job</h2>
     }
   </div>
   <div class="bg-gray-300/30 h-px w-full"></div>
@@ -18,12 +18,11 @@
         [formControl]="getControl('title')"
       />
       @if (hasError('title', 'required')) {
-        <mat-error class="text-red-600">Title is required</mat-error>
-      }
-      @if (hasError('title', 'minlength') || hasError('title', 'maxlength')) {
-        <mat-error class="text-red-600"
-          >Title must be between 5 and 255 characters</mat-error
-        >
+      <mat-error class="text-red-600">Title is required</mat-error>
+      } @if (hasError('title', 'minlength') || hasError('title', 'maxlength')) {
+      <mat-error class="text-red-600"
+        >Title must be between 5 and 255 characters</mat-error
+      >
       }
     </mat-form-field>
     <mat-form-field appearance="outline" floatLabel="always">
@@ -35,13 +34,11 @@
         [formControl]="getControl('description')"
       ></textarea>
       <mat-hint align="end">{{ descriptionInput.value.length }}/1024</mat-hint>
-      @if (
-        hasError('description', 'minlength') ||
-        hasError('description', 'maxlength')
-      ) {
-        <mat-error class="text-red-600"
-          >Description must be between 10 and 1024 characters</mat-error
-        >
+      @if ( hasError('description', 'minlength') || hasError('description',
+      'maxlength') ) {
+      <mat-error class="text-red-600"
+        >Description must be between 10 and 1024 characters</mat-error
+      >
       }
     </mat-form-field>
     <!--     create type job_remote_status as enum ('remote', 'hybrid', 'onsite');
@@ -60,7 +57,7 @@
           <mat-option value="onsite">Onsite</mat-option>
         </mat-select>
         @if (hasError('remoteStatus', 'required')) {
-          <mat-error class="text-red-600">Remote status is required</mat-error>
+        <mat-error class="text-red-600">Remote status is required</mat-error>
         }
       </mat-form-field>
       <mat-form-field class="w-full" appearance="outline" floatLabel="always">
@@ -78,9 +75,7 @@
           <mat-option value="executive">Executive (0_0)</mat-option>
         </mat-select>
         @if (hasError('experienceLevel', 'required')) {
-          <mat-error class="text-red-600"
-            >Experience level is required</mat-error
-          >
+        <mat-error class="text-red-600">Experience level is required</mat-error>
         }
       </mat-form-field>
       <mat-form-field class="w-full" appearance="outline" floatLabel="always">
@@ -95,7 +90,7 @@
           <mat-option value="remote">Remote</mat-option>
         </mat-select>
         @if (hasError('type', 'required')) {
-          <mat-error class="text-red-600">Type is required</mat-error>
+        <mat-error class="text-red-600">Type is required</mat-error>
         }
       </mat-form-field>
     </div>
@@ -109,17 +104,13 @@
           [formControl]="getControl('payMin')"
         />
         @if (hasError('payMin', 'required')) {
-          <mat-error class="text-red-600">Pay min is required</mat-error>
-        }
-
-        @if (hasError('payMin', 'min')) {
-          <mat-error class="text-red-600"
-            >Pay min must be greater than 0</mat-error
-          >
-        }
-
-        @if (hasError('payMin', 'pattern')) {
-          <mat-error class="text-red-600">Pay min must be a number</mat-error>
+        <mat-error class="text-red-600">Pay min is required</mat-error>
+        } @if (hasError('payMin', 'min')) {
+        <mat-error class="text-red-600"
+          >Pay min must be greater than 0</mat-error
+        >
+        } @if (hasError('payMin', 'pattern')) {
+        <mat-error class="text-red-600">Pay min must be a number</mat-error>
         }
       </mat-form-field>
       <mat-form-field class="w-full" appearance="outline" floatLabel="always">
@@ -131,17 +122,13 @@
           [formControl]="getControl('payMax')"
         />
         @if (hasError('payMax', 'required')) {
-          <mat-error class="text-red-600">Pay max is required</mat-error>
-        }
-
-        @if (hasError('payMax', 'min')) {
-          <mat-error class="text-red-600"
-            >Pay max must be greater than 0</mat-error
-          >
-        }
-
-        @if (hasError('payMax', 'pattern')) {
-          <mat-error class="text-red-600">Pay max must be a number</mat-error>
+        <mat-error class="text-red-600">Pay max is required</mat-error>
+        } @if (hasError('payMax', 'min')) {
+        <mat-error class="text-red-600"
+          >Pay max must be greater than 0</mat-error
+        >
+        } @if (hasError('payMax', 'pattern')) {
+        <mat-error class="text-red-600">Pay max must be a number</mat-error>
         }
       </mat-form-field>
     </div>
@@ -158,7 +145,7 @@
           <mat-option value="yearly">Yearly</mat-option>
         </mat-select>
         @if (hasError('payType', 'required')) {
-          <mat-error class="text-red-600">Pay type is required</mat-error>
+        <mat-error class="text-red-600">Pay type is required</mat-error>
         }
       </mat-form-field>
       <mat-form-field class="w-full" appearance="outline" floatLabel="always">
@@ -184,12 +171,11 @@
         matInput
         [formControl]="getControl('company')"
       />
-      @if (
-        hasError('company', 'minlength') || hasError('company', 'maxlength')
+      @if ( hasError('company', 'minlength') || hasError('company', 'maxlength')
       ) {
-        <mat-error class="text-red-600"
-          >Company must be between 5 and 255 characters</mat-error
-        >
+      <mat-error class="text-red-600"
+        >Company must be between 5 and 255 characters</mat-error
+      >
       }
     </mat-form-field>
     <mat-form-field class="w-full" appearance="outline" floatLabel="always">
@@ -199,29 +185,24 @@
         matInput
         [formControl]="getControl('location')"
       />
-      @if (
-        hasError('location', 'minlength') || hasError('location', 'maxlength')
-      ) {
-        <mat-error class="text-red-600"
-          >Location must be between 5 and 1024 characters</mat-error
-        >
+      @if ( hasError('location', 'minlength') || hasError('location',
+      'maxlength') ) {
+      <mat-error class="text-red-600"
+        >Location must be between 5 and 1024 characters</mat-error
+      >
       }
     </mat-form-field>
     <mat-form-field class="w-full" appearance="outline" floatLabel="always">
       <mat-label class="text-gray-300">Url</mat-label>
       <input class="text-gray-300" matInput [formControl]="getControl('url')" />
       @if (hasError('url', 'required')) {
-        <mat-error class="text-red-600">Url is required</mat-error>
-      }
-
-      @if (hasError('url', 'pattern')) {
-        <mat-error class="text-red-600">Url must be a valid url</mat-error>
-      }
-
-      @if (hasError('url', 'minlength') || hasError('url', 'maxlength')) {
-        <mat-error class="text-red-600"
-          >Url must be between 5 and 2048 characters</mat-error
-        >
+      <mat-error class="text-red-600">Url is required</mat-error>
+      } @if (hasError('url', 'pattern')) {
+      <mat-error class="text-red-600">Url must be a valid url</mat-error>
+      } @if (hasError('url', 'minlength') || hasError('url', 'maxlength')) {
+      <mat-error class="text-red-600"
+        >Url must be between 5 and 2048 characters</mat-error
+      >
       }
     </mat-form-field>
   </form>
@@ -230,10 +211,6 @@
     (click)="submit()"
     class="bg-cyan-500 p-2 rounded-lg text-white hover:bg-cyan-600 transition-colors"
   >
-    @if (isEdit) {
-      Update Job
-    } @else {
-      Create Job
-    }
+    @if (isEdit) { Update Job } @else { Create Job }
   </button>
 </div>
