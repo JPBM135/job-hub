@@ -9,7 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint-fix": "DEBUG=eslint:cli-engine eslint src --ext ts --fix && prettier --write src --ignore-path ../../.prettierignore",
-    "lint": "DEBUG=eslint:cli-engine eslint src --ext ts && prettier --check src --ignore-path ../../.prettierignore"
+    "lint": "DEBUG=eslint:cli-engine eslint src --ext ts && prettier --check src --ignore-path ../../.prettierignore",
+    "start-prod": "ng serve --configuration production"
   },
   "private": true,
   "dependencies": {

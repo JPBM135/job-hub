@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
     search: new FormControl(''),
     applicationStatus: new FormControl<string | null>(null),
     archived: new FormControl<boolean>(false),
+    remoteStatus: new FormControl<string | null>(null),
   });
 
   public orderByForm = new FormControl<string>('createdAt_DESC');

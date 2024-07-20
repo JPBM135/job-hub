@@ -32,6 +32,7 @@ export class JobsApiService {
       applicationStatus?: string;
       archived?: boolean;
       nameContains?: string;
+      remoteStatus?: string;
     };
   }) {
     return this.apollo

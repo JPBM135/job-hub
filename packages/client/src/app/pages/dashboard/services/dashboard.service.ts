@@ -10,6 +10,7 @@ interface JobsFilters {
   applicationStatus?: string | null;
   archived?: boolean;
   search?: string;
+  remoteStatus?: string | null;
 }
 
 @Injectable({
@@ -36,6 +37,7 @@ export class DashboardService implements BasePaginationService {
     search: '',
     applicationStatus: null,
     archived: false,
+    remoteStatus: null,
   });
 
   public constructor(private readonly jobsApiService: JobsApiService) {
@@ -53,6 +55,7 @@ export class DashboardService implements BasePaginationService {
           applicationStatus: this.filters().applicationStatus ?? undefined,
           archived: this.filters().archived,
           nameContains: this.filters().search,
+          remoteStatus: this.filters().remoteStatus ?? undefined,
         },
         orderBy: this.orderBy(),
         limit: this.take(),
@@ -80,6 +83,7 @@ export class DashboardService implements BasePaginationService {
       search: '',
       applicationStatus: null,
       archived: false,
+      remoteStatus: null,
     });
 
     this.skip.set(0);
