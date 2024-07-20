@@ -15,6 +15,7 @@ type Env = EnvHelper<{
   DB_PORT: number;
   DB_SSL: boolean;
   DB_USER: string;
+  FEED_WEBHOOK_URL: string | null;
   PORT: number;
   SECRET_LOGIN_HMAC: string;
   SECRET_STATE_HMAC: string;
@@ -52,6 +53,7 @@ export const config = {
   sentryDSN: envConfig.SENTRY_DSN,
   isProduction: ENVIRONMENT === 'prod',
   clientURL: envConfig.CLIENT_URL,
+  feedWebhookUrl: envConfig.FEED_WEBHOOK_URL,
   secret: {
     loginHmac: envConfig.SECRET_LOGIN_HMAC,
     stateHmac: envConfig.SECRET_STATE_HMAC,

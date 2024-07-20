@@ -7,6 +7,7 @@ import type {
   job_remote_status,
   job_type,
 } from '../../../@types/db.schema.js';
+import { sendPostToFeed } from '../../../core/discord/post.js';
 import { JobHubError } from '../../../core/error/JobHubError.js';
 import { JobHubErrorCodes } from '../../../core/error/codes.js';
 import type { JobHubResolver } from '../../interfaces.js';
@@ -70,6 +71,8 @@ export const CreateJob: JobHubResolver<Jobs, CreateJobVariables, true> = async (
       JobHubErrorCodes.InternalServerError,
     );
   }
+
+  void sendPostToFeed(job, db);
 
   return job;
 };
