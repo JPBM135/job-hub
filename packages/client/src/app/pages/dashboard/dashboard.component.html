@@ -42,6 +42,16 @@
           <mat-option value="title_DESC">Title Z-A</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-52" floatLabel="always">
+        <mat-label class="text-gray-300">Remote Status</mat-label>
+        <mat-select class="text-gray-300" formControlName="remoteStatus">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option value="remote">Remote</mat-option>
+          <mat-option value="onsite">Onsite</mat-option>
+          <mat-option value="hybrid">Hybrid</mat-option>
+        </mat-select>
+      </mat-form-field>
     </form>
     <div
       class="grid grid-flow-dense grid-cols-[repeat(auto-fill,minmax(500px,1fr))] justify-center gap-8 p-3"
