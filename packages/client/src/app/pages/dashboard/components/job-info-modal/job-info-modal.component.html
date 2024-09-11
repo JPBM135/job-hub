@@ -1,0 +1,118 @@
+<div class="flex flex-col gap-4 rounded-lg bg-slate-800 text-gray-300 p-6">
+  <div class="flex justify-between items-center">
+    <h2
+      class="text-xl font-bold truncate"
+      matTooltip
+      [tooltipWhenTruncated]="job.title"
+    >
+      {{ job.title }}
+    </h2>
+    <div class="flex gap-2">
+      <button
+        type="button"
+        matTooltip="View Job Posting"
+        (click)="openJob()"
+        target="_blank"
+        class="flex justify-between gap-4 bg-blue-600 p-2 rounded-lg"
+      >
+        <mat-icon class="scale-90 text-white">link</mat-icon>
+      </button>
+      <button
+        [ngClass]="{
+          'bg-green-600': job.application?.status === 'hired',
+          'bg-red-600': job.application?.status === 'rejected',
+          'bg-yellow-600': job.application?.status === 'offered',
+          'bg-blue-600': job.application?.status === 'interviewing',
+          'bg-gray-600':
+            job.application?.status === 'applied' || !job.application?.status
+        }"
+        [matTooltip]="
+          'Your application: ' +
+          (job.application?.status || 'Not Applied' | capitalize)
+        "
+        type="button"
+        (click)="openApplicationModal()"
+        class="flex justify-between gap-4 p-2 rounded-lg"
+      >
+        <mat-icon class="scale-90 text-white">
+          @switch (job.application?.status) { @case ('hired') { done } @case
+          ('rejected') { close } @case ('offered') { pending_actions } @case
+          ('interviewing') { pending } @case ('applied') { hourglass_empty }
+          @default { note_add } }
+        </mat-icon>
+      </button>
+      <button
+        type="button"
+        matTooltip="View job applicants"
+        (click)="openJobApplicantsModal()"
+        class="flex justify-between gap-4 bg-cyan-500 p-2 rounded-lg"
+      >
+        <mat-icon class="scale-90 text-white">people</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="bg-gray-300/30 h-px w-full"></div>
+  <div class="grid grid-cols-1 gap-2 text-gray-400">
+    <div class="flex justify-between">
+      <span class="font-semibold text-gray-300">Company:</span>
+      {{ job.company || 'N/A' }}
+    </div>
+    <div class="flex justify-between">
+      <span class="font-semibold text-gray-300">Location:</span>
+      {{ job.location || 'Remote' }}
+    </div>
+    <div class="flex justify-between">
+      <span class="font-semibold text-gray-300">Experience Level:</span>
+      {{ job.experienceLevel | capitalize }}
+    </div>
+    <div class="flex justify-between">
+      <span class="font-semibold text-gray-300">Pay Range:</span>
+      {{ job.payMin | currency }}
+      @if (job.payMax && job.payMin && job.payMax !== job.payMin) { - } @if
+      (job.payMax && job.payMax !== job.payMin) {
+      {{ job.payMax | currency }} ({{ job.payType }}) }
+    </div>
+    <div class="flex justify-between">
+      <span class="font-semibold text-gray-300"> Remote Status:</span>
+      {{ job.remoteStatus | capitalize }}
+    </div>
+    <div class="flex justify-between">
+      <span class="font-semibold text-gray-300">Type:</span>
+      {{ job.type | capitalize }}
+    </div>
+    <div class="flex justify-between">
+      <span class="font-semibold text-gray-300">Created By:</span>
+      {{ job.createdBy.name }}
+    </div>
+
+    <div
+      [ngClass]="{
+        'flex-col gap-2': job.description && job.description.length > 50
+      }"
+      class="flex justify-between"
+    >
+      <span class="font-semibold text-gray-300">Description:</span>
+      <div
+        [ngClass]="{
+          'p-4 rounded-lg bg-slate-600 text-white':
+            job.description && job.description.length > 50
+        }"
+      >
+        {{ job.description || 'Description not available' }}
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between text-xs text-gray-500">
+    @if (job.datePosted) {
+    <span>Posted: {{ job.datePosted | date : 'mediumDate' }}</span>
+    }
+    <div>
+      Created At:
+      <span class="font-semibold">{{ job.createdAt | date : 'short' }}</span>
+    </div>
+    <div>
+      Updated At:
+      <span class="font-semibold">{{ job.updatedAt | date : 'short' }}</span>
+    </div>
+  </div>
+</div>
